@@ -10,22 +10,11 @@
    		<meta name="viewport" content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8, target-densitydpi=low-dpi" />  
 
 		<link href="img/15.0904011.ico" mce_href="favicon.ico" rel="shortcut icon" type="img/15.0904011.ico" />
-		<script type="text/javascript" src="js/jquery.min.js"></script>
-		<script type="text/javascript" src="js/jquery.beattext.js"></script>
-		<script type="text/javascript" src="js/easying.js"></script>
-		<link rel="stylesheet" href="css/style.css" />
-	                <script type="text/javascript">
-  		var system ={};  
-    	var p = navigator.platform;       
-        system.win = p.indexOf("Win") == 0;  
-        system.mac = p.indexOf("Mac") == 0;  
-       system.x11 = (p == "X11") || (p.indexOf("Linux") == 0);     
-       if(system.win||system.mac||system.xll){//如果是电脑跳转到
-               window.location.href="../404.html";  
-       }else{  //如果是手机,跳转到
-              window.location.href="#";  
-        }//上面代码是判断是手机端还是PC端
- </script>
+		<script type="text/javascript" src="https://jg-rtp.github.io/js/jquery.min.js"></script>
+		<script type="text/javascript" src="https://jg-rtp.github.io/js/jquery.beattext.js"></script>
+		<script type="text/javascript" src="https://jg-rtp.github.io/js/easying.js"></script>
+		<link rel="stylesheet" href="https://jg-rtp.github.io/css/style.css" />
+	        
 		<script type="text/javascript">
 			$(document).ready(function() {
 		$('p#roloadText').beatText({isAuth:true,beatHeight:"1em",isRotate:false,upTime:100,downTime:100});
@@ -73,19 +62,5 @@
 		</script> 
 			</center>
 </div>		
-<audio autoplay loop id="music">
-<source src="../music/music.mp3" type="audio/mpeg">
-</audio>
-<script>   
-   function a(){
-     var audio = document.getElementById('music'); 
-     if(audio.paused){                 
-         audio.play();//audio.play();// 播放  
-     }
-     else{
-          audio.pause();// 暂停
-     } 
-   }
-</script>
 	</body>
 </html>
