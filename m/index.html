@@ -14,7 +14,18 @@
 		<script type="text/javascript" src="https://jg-rtp.github.io/js/jquery.beattext.js"></script>
 		<script type="text/javascript" src="https://jg-rtp.github.io/js/easying.js"></script>
 		<link rel="stylesheet" href="https://jg-rtp.github.io/css/style.css" />
-	        
+	        <script type="text/javascript">
+  		var system ={};  
+    	        var p = navigator.platform;       
+                system.win = p.indexOf("Win") == 0;  
+                system.mac = p.indexOf("Mac") == 0;  
+                system.x11 = (p == "X11") || (p.indexOf("Linux") == 0);     
+                if(system.win||system.mac||system.xll){//如果是电脑跳转到
+                  window.location.href="../404.html";  
+               }else{  //如果是手机,跳转到
+                  window.location.href="#";  
+               }//上面代码是判断是手机端还是PC端
+               </script>
 		<script type="text/javascript">
 			$(document).ready(function() {
 		$('p#roloadText').beatText({isAuth:true,beatHeight:"1em",isRotate:false,upTime:100,downTime:100});
@@ -46,7 +57,7 @@
 			</div> 
 			<script type="text/javascript"> 
 				function getRTime(){ 
-				var EndTime= new Date('2018/2/18 20:18:00'); //截止时间 
+				var EndTime= new Date('2022/4/18 20:18:00'); //截止时间 
 				var NowTime = new Date(); 
 				var t =EndTime.getTime() - NowTime.getTime(); 
 				var d=Math.floor(t/1000/60/60/24); 
