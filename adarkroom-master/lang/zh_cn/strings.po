@@ -1313,30 +1313,6 @@ msgstr "重开?"
 msgid "restart the game?"
 msgstr "重开游戏?"
 
-#: ../../script/engine.js:397
-msgid "Share"
-msgstr "分享"
-
-#: ../../script/engine.js:400
-msgid "bring your friends."
-msgstr "分享给你的好友"
-
-#: ../../script/engine.js:403
-msgid "facebook"
-msgstr "脸书"
-
-#: ../../script/engine.js:410
-msgid "google+"
-msgstr "环聊"
-
-#: ../../script/engine.js:417
-msgid "twitter"
-msgstr "推特"
-
-#: ../../script/engine.js:424
-msgid "reddit"
-msgstr "红迪"
-
 #: ../../script/engine.js:431
 msgid "close"
 msgstr "关闭"
