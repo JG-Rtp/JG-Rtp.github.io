@@ -1,0 +1,309 @@
+/*闲来无聊*/
+/*大晚上敲了这个效果*/
+/*欢迎大家使用*/
+/*作者QQ：344225443*/
+body, div, p, ul, ol, li, dl, dt, dd, table, tr, td, form, hr, h1, h2, h3, h4, h5, h6, fieldset, img, input {
+  margin: 0;
+  padding: 0; }
+
+body, html {
+    width: 100%;
+}
+body{
+  height: 100%;
+}
+img {
+  display: block; 
+}
+a {
+  margin: 0;
+  text-decoration: none; 
+}
+li {
+  list-style: none; 
+}
+a{
+ text-decoration: none;
+}
+
+
+.bg{
+  width: 100%;
+  height: 100%;
+  display: block;
+  background: linear-gradient(to bottom,#49BDAD,#f2b9ca);
+}
+.box{
+  padding-top: 10px;
+  width: 35%;
+  /*height: 600px;*/
+  display: block;
+  margin-right: auto;
+  margin-left: auto;
+}
+/*header*/
+.header{
+  width: 100%;
+}
+.logo{
+  width: 100%;
+  background: url(../img/head.png) no-repeat;
+  background-size: 100% 100%;
+  overflow: hidden;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+.logo img{
+  animation: logo 3s infinite linear;
+  width: 80px;
+  height: 80px;
+  margin: 10px auto;
+  border-radius: 50%;
+  height: auto;
+  border: 3px solid #fff;
+}
+/*logo动画*/
+@keyframes logo{
+    0%{
+        transform: rotateY(360deg);
+    }
+    100%{
+        transform: rotateY(0deg);
+    }
+}
+.header p{
+  font-size: 16px;
+  color: skyblue;
+  text-align: center;
+  font-weight: bold;
+  line-height: 25px;
+  background: #fff;
+}
+/*content*/
+.content{
+  width: 100%;
+  margin-top: 20px;
+  display: flex;
+  background: #fff;
+  padding: 10px 0;
+  border-radius: 5px;
+}
+.content p{
+  text-align: center;
+  font-weight: bold;
+  font-size: 16px;
+  line-height: 20px;
+}
+.con_hb, .con_sk{
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+}
+.hb, .sk{
+ 
+  width: 100%;
+  height: 100%;
+  border-radius: 15px;
+  transform: rotateY(360deg);
+  transition: all 0.3s;
+}
+@keyframes ewm{
+    0%{
+        transform: rotateY(360deg);
+    }
+    100%{
+        transform: rotateY(0deg);
+    }
+}
+
+/*领取详情*/
+.tp_box{
+  width: 100%;
+  z-index: 9999;
+  background: #fff;
+  margin-top: 15px;
+  display: flex;
+  justify-content: space-around;
+  font-size: 15px;
+  line-height: 20px;
+  font-weight: bold;
+  border-top-left-radius: 6px;
+  border-top-right-radius: 6px;
+}
+.pro_quota_tip{
+  background: #fff;
+  font-size: 14px;
+  overflow: hidden;
+  width: 100%;
+  height: 125px;
+  margin:0 auto;
+}
+.pro_quota_tip .tip_box{
+  position: relative;
+}
+.pro_quota_tip .tip_box p{
+  color: red;
+  width: 100%;
+  padding:15px 5px;
+  overflow:hidden;
+  display: flex;
+}
+.pro_quota_tip .tip_box p span{
+  display: block;
+  width: 33.33333%;
+  text-align: center;
+}
+
+
+/*版权*/
+.banquan{
+  width: 100%;
+  height: 30px;
+  background: rgba(0,0,0,.3);
+}
+.banquan p{
+  color: #fff;
+  font-size: 14px;
+  line-height: 30px;
+  text-align: center;
+}
+.banquan a{
+  color: #fff;
+  font-size: 14px;
+  line-height: 30px;
+  text-align: center;
+}
+.banquan a:hover{
+  color: skyblue;
+}
+
+/*顶部彩条*/
+/*彩条详细介绍*/
+/*详细使用 http://www.sharedblog.cn/?post=145  */
+.gundongtiao{
+  animation: gundongtiao 1s infinite linear;
+  height:5px;
+  width:100%;
+  z-index:9999;
+}
+@keyframes gundongtiao{
+  0%{
+      background: #000 linear-gradient(to left, #4cd964, #5ac8fa, #007aff, #34aadc, #5856d6, #ff2d55);
+  }
+  20%{
+      background: #000 linear-gradient(to left, #ff2d55,#4cd964, #5ac8fa, #007aff, #34aadc,#5856d6);
+  }
+  40%{
+      background: #000 linear-gradient(to left, #5856d6,#ff2d55,#4cd964, #5ac8fa, #007aff, #34aadc);
+  }
+  60%{
+      background: #000 linear-gradient(to left, #34aadc,#5856d6,#ff2d55,#4cd964, #5ac8fa, #007aff);
+  }
+  80%{
+      background: #000 linear-gradient(to left, #007aff,#34aadc,#5856d6,#ff2d55,#4cd964, #5ac8fa);
+  }
+  100%{
+      background: #000 linear-gradient(to left, #5ac8fa,#007aff,#34aadc,#5856d6,#ff2d55,#4cd964);
+  }
+}
+/*客服*/
+.pengzai{
+  position: fixed; 
+  right: 0; 
+  bottom: 30px; 
+  z-index: 9988;
+}
+.pengzai a{
+  color: #fff;
+  width: 36px; 
+  height: 41px; 
+  font-size: 13px; 
+  padding: 3px 4px; 
+  display: block; 
+  border-radius: 5px; 
+  text-align: center; 
+  margin-top: 10px; 
+  box-shadow: 0 1px 2px rgba(0,0,0,.35); 
+  text-decoration: none; 
+  line-height: 20px; 
+  font-weight: bold; 
+  overflow: hidden;
+}
+#BgColor{
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,.6);
+  z-index: 9998;
+  display: none;
+}
+#kfewm{
+  width: 30%;
+  z-index: 9999;
+  position: fixed;
+  left: 0;
+  top: 10%;
+  right: 0;
+  margin: 0 auto;
+  text-align: center;
+  color: #fff;
+  font-size: 16px;
+  line-height: 25px;
+  display: none;
+}
+#kfewm img{
+  width: 100%;
+  border-radius: 10px;
+}
+
+
+/*响应式走起*/
+/*响应式介绍*/
+/*用法 http://www.sharedblog.cn/?post=160  */
+@media screen and (min-width: 980px) and (max-width: 1200px){
+    .box{
+        width: 35%;
+    }
+}
+@media screen and (min-width: 768px) and (max-width: 979px){
+    .box{
+        width: 65%;
+    }
+    #kfewm{
+      width: 45%;
+      top: 20%;
+    }
+}
+@media screen and (min-width: 0px) and (max-width: 767px){
+    .box{
+        width: 95%;
+    }
+    #kfewm{
+      width: 45%;
+      top: 20%;
+    }
+}
+
+/*滚动条太丑，改了下样式*/
+::-webkit-scrollbar {
+  width: 5px;
+  height: 5px; }
+
+::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+  border-radius: 0px;
+  background: #12fafd; }
+
+::-webkit-scrollbar-thumb {
+  border-radius: 5px;
+  -webkit-box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+  background: #12a7fd; }
+
+::-webkit-scrollbar-thumb:hover {
+  border-radius: 5px;
+  -webkit-box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+  background: #39fd70; }

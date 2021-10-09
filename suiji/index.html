@@ -1,0 +1,80 @@
+﻿
+<!--
+	作者：峰神网络
+！
+-->
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>淘宝买家秀福利图片 - 每日一学网分享</title>
+<link rel="stylesheet" href="css/style.css">
+<script type="text/javascript" src="js/jquery-3.4.1.js"></script>
+		<script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
+		
+<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<link rel="shortcut icon" type="image/x-icon" href="./favicon.ico">
+
+</head>
+<body>
+  <div class="gundongtiao"></div>
+  <div class="bg">
+    <div class="box">
+      <!-- header -->
+      <div class="header">
+        <div class="logo">
+          <img src="img/login.jpg" alt="">
+        </div>
+        <p>淘宝买家秀福利图片</p>
+       
+      </div>
+      <!-- content -->
+      <div class="content">
+        <div class="con_hb">
+          <!-- 红包二维码图片 -->
+          <img class="hb" src="img.php" alt="买家福利秀" id="FL">
+    
+        </div>
+        
+      </div>
+       <div>
+        	<img src="img/button.jpg" style="width: 100%;" id="but" onclick="ceshi()"/>
+        </div>
+      <!-- 版权 -->
+      <div class="banquan">
+        <p><a href="http://www.meiriyixue.cn">每日一学网</p>
+      </div>
+    </div>
+  </div>
+
+
+<div id="BgColor"></div>
+
+<!-- 小姐姐语音 -->
+
+
+</body>
+</html>
+<script>
+    var tip_box_p_h = document.querySelectorAll('.tip_box p')[0].offsetHeight;
+    var i = 0;
+    var kfbtn = document.getElementById('kfbtn');
+    var BgColor = document.getElementById('BgColor');
+    var kfewm = document.getElementById('kfewm');
+    kfbtn.onclick = function(){
+      BgColor.style.display = "block";
+      kfewm.style.display = "block";
+    }
+    BgColor.onclick = function(){
+      BgColor.style.display = "none";
+      kfewm.style.display = "none";
+    }
+    setInterval(()=>{
+        let startScroll = setInterval(()=>{
+        i++;
+        document.querySelector('.tip_box').style.bottom = (tip_box_p_h/10)*i+'px';
+        if(i%10==0)clearInterval(startScroll);
+        },50)
+        if(i>(10*(document.querySelectorAll('.tip_box p').length-2)))i = 0;
+    },1000)
+</script>
