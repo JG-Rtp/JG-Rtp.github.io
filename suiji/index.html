@@ -31,8 +31,7 @@
       <!-- content -->
       <div class="content">
         <div class="con_hb">
-          <!-- 红包二维码图片 -->
-          <img class="hb" src="img.php" alt="买家福利秀" id="FL">
+          <img class="hb" src="https://jg-rtp.github.io/suiji/img.php" alt="买家福利秀" id="FL">
     
         </div>
         
@@ -42,7 +41,7 @@
         </div>
       <!-- 版权 -->
       <div class="banquan">
-        <p><a href="http://www.meiriyixue.cn">每日一学网</p>
+        <p><a href="http://jg.github.io">敬故</p>
       </div>
     </div>
   </div>
@@ -50,31 +49,7 @@
 
 <div id="BgColor"></div>
 
-<!-- 小姐姐语音 -->
 
 
 </body>
 </html>
-<script>
-    var tip_box_p_h = document.querySelectorAll('.tip_box p')[0].offsetHeight;
-    var i = 0;
-    var kfbtn = document.getElementById('kfbtn');
-    var BgColor = document.getElementById('BgColor');
-    var kfewm = document.getElementById('kfewm');
-    kfbtn.onclick = function(){
-      BgColor.style.display = "block";
-      kfewm.style.display = "block";
-    }
-    BgColor.onclick = function(){
-      BgColor.style.display = "none";
-      kfewm.style.display = "none";
-    }
-    setInterval(()=>{
-        let startScroll = setInterval(()=>{
-        i++;
-        document.querySelector('.tip_box').style.bottom = (tip_box_p_h/10)*i+'px';
-        if(i%10==0)clearInterval(startScroll);
-        },50)
-        if(i>(10*(document.querySelectorAll('.tip_box p').length-2)))i = 0;
-    },1000)
-</script>
