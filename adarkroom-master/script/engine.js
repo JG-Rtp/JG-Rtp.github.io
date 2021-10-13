@@ -87,14 +87,7 @@
 			this._log = this.options.log;
 			
 			// Check for HTML5 support
-			if(!Engine.browserValid()) {
-				window.location = 'browserWarning.html';
-			}
-			
-			// Check for mobile
-			if(Engine.isMobile()) {
-				window.location = 'mobileWarning.html';
-			}
+			//1111
 	
 			Engine.disableSelection();
 			
