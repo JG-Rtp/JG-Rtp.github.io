@@ -45,7 +45,7 @@ margin:0 auto;
 }
 #fresh{color:#fff}
 .send{text-decoration:none; width:60px; display:inline-block;height: 40px;line-height:40px;text-align:center;background:#ECEFF1;}
-.sendd{width:"100%";height:"100%";}
+.sendd{width:100%;height:100%;position: absolute;}
 .send.disabled{background-color: #cccccc;}
 .mk-chat-box .msg{ /*消息主体*/
     margin: 4px 6px;
