@@ -44,7 +44,7 @@ margin:0 auto;
     font-weight: 400;
 }
 #fresh{color:#fff}
-.send{background-image:url(https://jg-rtp.github.io/img/fs.png); text-decoration:none; width:60px; display:inline-block;height: 40px;line-height:40px;text-align:center;border:0.5px solid #000000;}
+.send{text-decoration:none; width:60px; display:inline-block;height: 40px;line-height:40px;text-align:center;border:0.5px solid #000000;background-image:url(https://jg-rtp.github.io/img/fs.png);}
 .send.disabled{background-color: #cccccc;}
 .mk-chat-box .msg{ /*消息主体*/
     margin: 4px 6px;
