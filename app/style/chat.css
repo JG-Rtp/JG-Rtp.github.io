@@ -1,5 +1,5 @@
 /**
- * ÃÏÀ¤htmlÁÄÌì¿ò v1.0.0
+ * å­Ÿå¤htmlèŠå¤©æ¡† v1.0.0
  * Copyright 2011-2016 mengkunsoft, Inc.
  * Licensed under MIT 
  */
@@ -44,11 +44,11 @@ margin:0 auto;
     font-weight: 400;
 }
 #fresh{color:#fff}
-.send{color:#fff;text-decoration:none;width:60px; background-color: #007bff;display:inline-block;height: 40px;line-height:40px;text-align:center}
+.send{border-style:0.5px solid; background-image:url(https://jg-rtp.github.io/img/fs.png); text-decoration:none;width:60px; display:inline-block;height: 40px;line-height:40px;text-align:center}
 .send.disabled{background-color: #cccccc;}
-.mk-chat-box .msg{ /*ÏûÏ¢Ö÷Ìå*/
+.mk-chat-box .msg{ /*æ¶ˆæ¯ä¸»ä½“*/
     margin: 4px 6px;
-    position: relative; /*¼æÈİIE*/
+    position: relative; /*å…¼å®¹IE*/
     min-height: 40px;
     border: 0;
 }
@@ -61,16 +61,16 @@ margin:0 auto;
     margin-right: 64px;
 }
 
-.mk-chat-box img.head{ /*Í·Ïñ*/
+.mk-chat-box img.head{ /*å¤´åƒ*/
     width: 32px;
     height: 32px;
     top: 8px;
     position: absolute;
     -moz-border-radius: 100%; /* Firefox */
-    -webkit-border-radius: 100%; /* Safari ºÍ Chrome */
+    -webkit-border-radius: 100%; /* Safari å’Œ Chrome */
     border-radius: 100%;
     border: 1px solid #cbe5c8;
-    -moz-user-select: none; /*½ûÖ¹ÓÃ»§Ñ¡ÖĞ*/
+    -moz-user-select: none; /*ç¦æ­¢ç”¨æˆ·é€‰ä¸­*/
     -o-user-select: none;
     -khtml-user-select: none;
     -webkit-user-select: none;
@@ -85,7 +85,7 @@ margin:0 auto;
     left: 0;
 }
 
-.mk-chat-box .name{    /*êÇ³ÆÏÔÊ¾ÇøÓò*/
+.mk-chat-box .name{    /*æ˜µç§°æ˜¾ç¤ºåŒºåŸŸ*/
     color: #8b8b8b;
     font-size: 12px;
     display: block;
@@ -98,9 +98,9 @@ margin:0 auto;
     margin: 0 0 2px 48px;
 }
 
-.mk-chat-box .content{  /*ÏûÏ¢ÄÚÈİÇøÓò*/
+.mk-chat-box .content{  /*æ¶ˆæ¯å†…å®¹åŒºåŸŸ*/
     word-break: break-all;
-    word-wrap: break-word;/*Ö§³ÖIE£¬chrome£¬FF*/
+    word-wrap: break-word;/*æ”¯æŒIEï¼Œchromeï¼ŒFF*/
     text-align: left;
     position: relative;
     display: inline-block;
@@ -108,18 +108,18 @@ margin:0 auto;
     padding: 6px;
     line-height: 18px;
     -moz-border-radius: 6px; /* Firefox */
-    -webkit-border-radius: 6px; /* Safari ºÍ Chrome */
+    -webkit-border-radius: 6px; /* Safari å’Œ Chrome */
     border-radius: 6px;
-    min-width: 9px;     /*·ÀÖ¹³öÏÖ¿Õ°×ÏûÏ¢±äĞÎ*/
+    min-width: 9px;     /*é˜²æ­¢å‡ºç°ç©ºç™½æ¶ˆæ¯å˜å½¢*/
     min-height: 18px;
 }
-.mk-chat-box .content img{  /*ÏûÏ¢ÄÚÈİÇøÓòÍ¼Æ¬*/
+.mk-chat-box .content img{  /*æ¶ˆæ¯å†…å®¹åŒºåŸŸå›¾ç‰‡*/
     width: 100%;
-    *:width: auto;      /*µÍ°æ±¾µÄIE*/
+    *:width: auto;      /*ä½ç‰ˆæœ¬çš„IE*/
     *:max-width: 100%;
     height: auto;
 }
-.mk-chat-box .content a{  /*ÏûÏ¢ÄÚÈİÇøÓò³¬Á´½Ó*/
+.mk-chat-box .content a{  /*æ¶ˆæ¯å†…å®¹åŒºåŸŸè¶…é“¾æ¥*/
     color: #0072C1;
     margin: 0 5px;
     cursor: hand;
@@ -135,7 +135,7 @@ margin:0 auto;
     background: #CDD7E2;
 }
 
-.mk-chat-box .content:after{   /*ÏûÏ¢¼â½Ç*/
+.mk-chat-box .content:after{   /*æ¶ˆæ¯å°–è§’*/
     content: "";
     position: absolute;
     border-bottom: 8px solid rgba(255, 255, 255, 0);
@@ -150,7 +150,7 @@ margin:0 auto;
     top: 8px;
     border-right: 12px solid #cdd7e2;
 }
-.mk-chat-box .tips{ /*ÏµÍ³ÌáÊ¾Ìõ*/
+.mk-chat-box .tips{ /*ç³»ç»Ÿæç¤ºæ¡*/
     margin: 12px;
     text-align: center;
     font-size: 12px;
@@ -161,7 +161,7 @@ margin:0 auto;
     background-color: #cccccc;
     color: #ffffff;
     -moz-border-radius: 6px; /* Firefox */
-    -webkit-border-radius: 6px; /* Safari ºÍ Chrome */
+    -webkit-border-radius: 6px; /* Safari å’Œ Chrome */
     border-radius: 6px;
 }
 .mk-chat-box .tips .tips-primary{
@@ -180,7 +180,7 @@ margin:0 auto;
     background-color: #d9534f;
 }
 
-/*¹ö¶¯ÌõÃÀ»¯*/
+/*æ»šåŠ¨æ¡ç¾åŒ–*/
 .mk-chat-box::-webkit-scrollbar{width:8px;height:8px}
 .mk-chat-box::-webkit-scrollbar-button:vertical{display:none}
 .mk-chat-box::-webkit-scrollbar-track:vertical{background-color:transparent;}
