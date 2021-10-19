@@ -252,6 +252,10 @@ div.button div.cooldown {
 	background-color: #DDDDDD;
 }
 
+div.button div.auto{
+	background-color: #DDDDFF;
+}
+
 /* Up/Down buttons. They're complicated! */
 
 .upBtn, .dnBtn, .upManyBtn, .dnManyBtn {
