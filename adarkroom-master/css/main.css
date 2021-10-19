@@ -180,7 +180,14 @@ div.row_key {
 div.row_val {
 	float: right;
 }
+div.row_delta {
+	float: right;
+	color: red;
+}
 
+div.positive{
+	color: black;
+}
 /* Notifications */
 
 div#notifications {
@@ -237,7 +244,7 @@ div.button:hover {
 }
 
 div.button.affordable {
-	border-color: #DDDDDD;
+	border-color: #DDDDFF;
 }
 
 div.button.disabled, div.button.disabled:hover {
