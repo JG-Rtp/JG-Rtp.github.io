@@ -8,7 +8,9 @@ var Events = {
 	_FIGHT_SPEED: 100,
 	_EAT_COOLDOWN: 5,
 	_MEDS_COOLDOWN: 7,
+	_LEAVE_COOLDOWN: 1,
 	STUN_DURATION: 4000,
+	BLINK_INTERVAL: false,
 	
 	init: function(options) {
 		this.options = $.extend(
@@ -17,7 +19,7 @@ var Events = {
 		);
 		
 		// Build the Event Pool
-		Events.EventPool = new Array().concat(
+		Events.EventPool = [].concat(
 			Events.Global,
 			Events.Room,
 			Events.Outside
@@ -33,9 +35,7 @@ var Events = {
 	
 	options: {}, // Nothing for now
     
-	activeEvent: null,
 	activeScene: null,
-	eventPanel: null,
     
 	loadScene: function(name) {
 		Engine.log('loading scene: ' + name);
@@ -86,7 +86,7 @@ var Events = {
 		for(var k in World.Weapons) {
 			var weapon = World.Weapons[k];
 			if(typeof Path.outfit[k] == 'number' && Path.outfit[k] > 0) {
-				if(typeof weapon.damage != 'number' || weapon.damage == 0) {
+				if(typeof weapon.damage != 'number' || weapon.damage === 0) {
 					// Weapons that deal no damage don't count
 					numWeapons--;
 				} else if(weapon.cost){
@@ -102,18 +102,18 @@ var Events = {
 				Events.createAttackButton(k).appendTo(btns);
 			}
 		}
-		if(numWeapons == 0) {
+		if(numWeapons === 0) {
 			// No weapons? You can punch stuff!
 			Events.createAttackButton('fists').prependTo(btns);
 		}
 		
 		Events.createEatMeatButton().appendTo(btns);
-		if((Path.outfit['medicine'] || 0) != 0) {
-		  Events.createUseMedsButton().appendTo(btns);
-	  }
+		if((Path.outfit['medicine'] || 0) !== 0) {
+			Events.createUseMedsButton().appendTo(btns);
+		}
 		
 		// Set up the enemy attack timer
-		Events._enemyAttackTimer = setTimeout(Events.enemyAttack, scene.attackDelay * 1000);
+		Events._enemyAttackTimer = Engine.setTimeout(Events.enemyAttack, scene.attackDelay * 1000);
 	},
 	
 	createEatMeatButton: function(cooldown) {
@@ -129,7 +129,7 @@ var Events = {
 			cost: { 'cured meat': 1 }
 		});
 		
-		if(Path.outfit['cured meat'] == 0) {
+		if(Path.outfit['cured meat'] === 0) {
 			Button.setDisabled(btn, true);
 		}
 		
@@ -149,7 +149,7 @@ var Events = {
 			cost: { 'medicine': 1 }
 		});
 		
-		if((Path.outfit['medicine'] || 0) == 0) {
+		if((Path.outfit['medicine'] || 0) === 0) {
 			Button.setDisabled(btn, true);
 		}
 		
@@ -201,7 +201,7 @@ var Events = {
 		if(Path.outfit['cured meat'] > 0) {
 			Path.outfit['cured meat']--;
 			World.updateSupplies();
-			if(Path.outfit['cured meat'] == 0) {
+			if(Path.outfit['cured meat'] === 0) {
 				Button.setDisabled($('#eat'), true);
 			}
 			
@@ -223,7 +223,7 @@ var Events = {
 		if(Path.outfit['medicine'] > 0) {
 			Path.outfit['medicine']--;
 			World.updateSupplies();
-			if(Path.outfit['medicine'] == 0) {
+			if(Path.outfit['medicine'] === 0) {
 				Button.setDisabled($('#meds'), true);
 			}
 			
@@ -284,7 +284,7 @@ var Events = {
 					if(!validWeapons) {
 						// enable or create the punch button
 						var fists = $('#attack_fists');
-						if(fists.length == 0) {
+						if(fists.length === 0) {
 							Events.createAttackButton('fists').prependTo('#buttons', Events.eventPanel());
 						} else {
 							Button.setDisabled(fists, false);
@@ -339,11 +339,11 @@ var Events = {
 			var msg = "";
 			if(typeof dmg == 'number') {
 				if(dmg < 0) {
-					msg = 'miss';
+					msg = _('miss');
 					dmg = 0;
 				} else {
 					msg = '-' + dmg;
-					enemyHp -= dmg;
+					enemyHp = ((enemyHp - dmg) < 0) ? 0 : (enemyHp - dmg);
 					enemy.data('hp', enemyHp);
 					if(fighter.attr('id') == 'enemy') {
 						World.setHp(enemyHp);
@@ -352,9 +352,9 @@ var Events = {
 				}
 			} else {
 				if(dmg == 'stun') {
-					msg = 'stunned';
+					msg = _('stunned');
 					enemy.data('stunned', true);
-					setTimeout(function() {
+					Engine.setTimeout(function() {
 						enemy.data('stunned', false);
 					}, Events.STUN_DURATION);
 				}
@@ -384,11 +384,11 @@ var Events = {
 			var msg = "";
 			if(typeof dmg == 'number') {
 				if(dmg < 0) {
-					msg = 'miss';
+					msg = _('miss');
 					dmg = 0;
 				} else {
 					msg = '-' + dmg;
-					enemyHp -= dmg;
+					enemyHp = ((enemyHp - dmg) < 0) ? 0 : (enemyHp - dmg);
 					enemy.data('hp', enemyHp);
 					if(fighter.attr('id') == 'enemy') {
 						World.setHp(enemyHp);
@@ -397,9 +397,9 @@ var Events = {
 				}
 			} else {
 				if(dmg == 'stun') {
-					msg = 'stunned';
+					msg = _('stunned');
 					enemy.data('stunned', true);
-					setTimeout(function() {
+					Engine.setTimeout(function() {
 						enemy.data('stunned', false);
 					}, Events.STUN_DURATION);
 				}
@@ -438,15 +438,14 @@ var Events = {
 			});
 		}
 		
-		Events._enemyAttackTimer = 
-			setTimeout(Events.enemyAttack, scene.attackDelay * 1000);
+		Events._enemyAttackTimer = Engine.setTimeout(Events.enemyAttack, scene.attackDelay * 1000);
 	},
 	
 	winFight: function() {
 		Events.won = true;
 		clearTimeout(Events._enemyAttackTimer);
 		$('#enemy').animate({opacity: 0}, 300, 'linear', function() {
-			setTimeout(function() {
+			Engine.setTimeout(function() {
 				try {
 					var scene = Events.activeEvent().scenes[Events.activeScene];
 					var desc = $('#description', Events.eventPanel());
@@ -461,8 +460,9 @@ var Events = {
 						// Draw the buttons
 						Events.drawButtons(scene);
 					} else {
-						new Button.Button({
+						Button.cooldown(new Button.Button({
 							id: 'leaveBtn',
+							cooldown: Events._LEAVE_COOLDOWN,
 							click: function() {
 								var scene = Events.activeEvent().scenes[Events.activeScene];
 								if(scene.nextScene && scene.nextScene != 'end') {
@@ -472,17 +472,17 @@ var Events = {
 								}
 							},
 							text: _('leave')
-						}).appendTo(btns);
+						}).appendTo(btns));
 						
 						Events.createEatMeatButton(0).appendTo(btns);
-						if((Path.outfit['medicine'] || 0) != 0) {
-						  Events.createUseMedsButton(0).appendTo(btns);
-					  }
+						if((Path.outfit['medicine'] || 0) !== 0) {
+							Events.createUseMedsButton(0).appendTo(btns);
+						}
 					}
 				} catch(e) {
 					// It is possible to die and win if the timing is perfect. Just let it fail.
 				}
-			}, 1000);
+			}, 1000, true);
 		});
 	},
 	
@@ -540,7 +540,7 @@ var Events = {
 				var num = btn.data('numLeft');
 				num--;
 				btn.data('numLeft', num);
-				if(num == 0) {
+				if(num === 0) {
 					Button.setDisabled(btn);
 					btn.animate({'opacity':0}, 300, 'linear', function() {
 						$(this).remove();
@@ -612,7 +612,10 @@ var Events = {
 		}
 		
 		if(scene.textarea != null) {
-			$('<textarea>').val(scene.textarea).appendTo(desc);
+			var ta = $('<textarea>').val(scene.textarea).appendTo(desc);
+			if(scene.readonly) {
+				ta.attr('readonly', true);
+			}
 		}
 		
 		// Draw any loot
@@ -632,10 +635,14 @@ var Events = {
 					id: id,
 					text: info.text,
 					cost: info.cost,
-					click: Events.buttonClick
+					click: Events.buttonClick,
+					cooldown: info.cooldown
 				}).appendTo(btns);
 			if(typeof info.available == 'function' && !info.available()) {
 				Button.setDisabled(b, true);
+			}
+			if(typeof info.cooldown == 'number') {
+				Button.cooldown(b);
 			}
 		}
 		
@@ -727,42 +734,58 @@ var Events = {
 			}
 		}
 	},
+
+	// blinks the browser window title
+	blinkTitle: function() {
+		var title = document.title;
+
+		// every 3 seconds change title to '*** EVENT ***', then 1.5 seconds later, change it back to the original title.
+		Events.BLINK_INTERVAL = setInterval(function() {
+			document.title = _('*** EVENT ***');
+			Engine.setTimeout(function() {document.title = title;}, 1500, true); 
+		}, 3000);
+	},
+
+	stopTitleBlink: function() {
+		clearInterval(Events.BLINK_INTERVAL);
+		Events.BLINK_INTERVAL = false;
+	},
 	
-    // Makes an event happen!
-    triggerEvent: function() {
-    	if(Events.activeEvent() == null) {
-	    	var possibleEvents = [];
-	    	for(var i in Events.EventPool) {
-	    		var event = Events.EventPool[i];
-	    		if(event.isAvailable()) {
-	    			possibleEvents.push(event);
-	    		}
-	    	}
-			
-			if(possibleEvents.length == 0) {
+	// Makes an event happen!
+	triggerEvent: function() {
+		if(Events.activeEvent() == null) {
+			var possibleEvents = [];
+			for(var i in Events.EventPool) {
+				var event = Events.EventPool[i];
+				if(event.isAvailable()) {
+					possibleEvents.push(event);
+				}
+			}
+
+			if(possibleEvents.length === 0) {
 				Events.scheduleNextEvent(0.5);
 				return;
 			} else {
-		    	var r = Math.floor(Math.random()*(possibleEvents.length));
-		    	Events.startEvent(possibleEvents[r]);
-	    	}
-    	}
-    	
-    	Events.scheduleNextEvent();
-    },
-    
-    triggerFight: function() {
-    	var possibleFights = [];
-    	for(var i in Events.Encounters) {
-    		var fight = Events.Encounters[i];
-    		if(fight.isAvailable()) {
-    			possibleFights.push(fight);
-    		}
-    	}
-    	
+				var r = Math.floor(Math.random()*(possibleEvents.length));
+				Events.startEvent(possibleEvents[r]);
+			}
+		}
+
+		Events.scheduleNextEvent();
+	},
+
+	triggerFight: function() {
+		var possibleFights = [];
+		for(var i in Events.Encounters) {
+			var fight = Events.Encounters[i];
+			if(fight.isAvailable()) {
+				possibleFights.push(fight);
+			}
+		}
+
 		var r = Math.floor(Math.random()*(possibleFights.length));
-    	Events.startEvent(possibleFights[r]);
-    },
+		Events.startEvent(possibleFights[r]);
+	},
 	
 	activeEvent: function() {
 		if(Events.eventStack && Events.eventStack.length > 0) {
@@ -774,8 +797,8 @@ var Events = {
 	eventPanel: function() {
 		return Events.activeEvent().eventPanel;
 	},
-    
-    startEvent: function(event, options) {
+
+	startEvent: function(event, options) {
 		if(event) {
 			Engine.event('game event', 'event');
 			Engine.keyLock = true;
@@ -790,30 +813,37 @@ var Events = {
 			Events.loadScene('start');
 			$('div#wrapper').append(Events.eventPanel());
 			Events.eventPanel().animate({opacity: 1}, Events._PANEL_FADE, 'linear');
+			var currentSceneInformation = Events.activeEvent().scenes[Events.activeScene];
+			if (currentSceneInformation.blink) {
+				Events.blinkTitle();
+			}
 		}
-    },
-    
-    scheduleNextEvent: function(scale) {
-    	var nextEvent = Math.floor(Math.random()*(Events._EVENT_TIME_RANGE[1] - Events._EVENT_TIME_RANGE[0])) + Events._EVENT_TIME_RANGE[0];
-    	if(scale > 0) { nextEvent *= scale; }
-    	Engine.log('next event scheduled in ' + nextEvent + ' minutes');
-    	Events._eventTimeout = setTimeout(Events.triggerEvent, nextEvent * 60 * 1000);
-    },
-    
-    endEvent: function() {
-    	Events.eventPanel().animate({opacity:0}, Events._PANEL_FADE, 'linear', function() {
-    		Events.eventPanel().remove();
+	},
+
+	scheduleNextEvent: function(scale) {
+		var nextEvent = Math.floor(Math.random()*(Events._EVENT_TIME_RANGE[1] - Events._EVENT_TIME_RANGE[0])) + Events._EVENT_TIME_RANGE[0];
+		if(scale > 0) { nextEvent *= scale; }
+		Engine.log('next event scheduled in ' + nextEvent + ' minutes');
+		Events._eventTimeout = Engine.setTimeout(Events.triggerEvent, nextEvent * 60 * 1000);
+	},
+
+	endEvent: function() {
+		Events.eventPanel().animate({opacity:0}, Events._PANEL_FADE, 'linear', function() {
+			Events.eventPanel().remove();
 			Events.activeEvent().eventPanel = null;
 			Events.eventStack.shift();
-        	Engine.log(Events.eventStack.length + ' events remaining');
-    		Engine.keyLock = false;
-    		// Force refocus on the body. I hate you, IE.
-    		$('body').focus();
-    	});
-    },
-    
-    handleStateUpdates: function(e){
-		if(e.category == 'stores' && Events.activeEvent() != null){
+			Engine.log(Events.eventStack.length + ' events remaining');
+			Engine.keyLock = false;
+			if (Events.BLINK_INTERVAL) {
+				Events.stopTitleBlink();
+			}
+			// Force refocus on the body. I hate you, IE.
+			$('body').focus();
+		});
+	},
+
+	handleStateUpdates: function(e){
+		if((e.category == 'stores' || e.category == 'income') && Events.activeEvent() != null){
 			Events.updateButtons();
 		}
 	}
