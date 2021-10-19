@@ -1313,34 +1313,6 @@ msgstr "重开?"
 msgid "restart the game?"
 msgstr "重开游戏?"
 
-#: ../../script/engine.js:397
-msgid "Share"
-msgstr "分享"
-
-#: ../../script/engine.js:400
-msgid "bring your friends."
-msgstr "分享给你的好友"
-
-#: ../../script/engine.js:403
-msgid "facebook"
-msgstr "脸书"
-
-#: ../../script/engine.js:410
-msgid "google+"
-msgstr "环聊"
-
-#: ../../script/engine.js:417
-msgid "twitter"
-msgstr "推特"
-
-#: ../../script/engine.js:424
-msgid "reddit"
-msgstr "红迪"
-
-#: ../../script/engine.js:431
-msgid "close"
-msgstr "关闭"
-
 #: ../../script/engine.js:466 ../../script/engine.js:469
 msgid "lights on."
 msgstr "开灯"
@@ -1708,19 +1680,19 @@ msgstr "道别"
 
 #: ../../script/events/room.js:54
 msgid "Fire"
-msgstr ""
+msgstr "火灾"
 
 #: ../../script/events/room.js:61
 msgid "A fire rampages through one of your huts, destroying it."
-msgstr ""
+msgstr "一场大火冲过你的一间小屋，摧毁了它。"
 
 #: ../../script/events/room.js:62
 msgid "Saddly, all residents in the hut perished in the fire."
-msgstr ""
+msgstr "可悲的是，小屋里的所有居民都在火灾中死去。"
 
 #: ../../script/events/room.js:64
 msgid "a fire has started"
-msgstr ""
+msgstr "一场大火已经开始了"
 
 #: ../../script/events/room.js:74
 #, fuzzy
@@ -1729,7 +1701,7 @@ msgstr "护甲"
 
 #: ../../script/events/room.js:75
 msgid "some villagers have died"
-msgstr ""
+msgstr "一些村民已经死亡"
 
 #: ../../script/events/room.js:83 ../../script/events/room.js:134
 msgid "Noises"
