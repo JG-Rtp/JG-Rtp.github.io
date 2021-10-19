@@ -159,12 +159,6 @@
 			
 			$('<span>')
 				.addClass('menuBtn')
-				.text(_('share.'))
-				.click(Engine.share)
-				.appendTo(menu);
-
-			$('<span>')
-				.addClass('menuBtn')
 				.text(_('save.'))
 				.click(Engine.exportImport)
 				.appendTo(menu);
@@ -178,18 +172,6 @@
 					.click(Engine.Dropbox.startDropbox)
 					.appendTo(menu);
 			}
-			
-			$('<span>')
-				.addClass('menuBtn')
-				.text(_('app store.'))
-				.click(function() { window.open('https://itunes.apple.com/us/app/a-dark-room/id736683061'); })
-				.appendTo(menu);
-
-			$('<span>')
-				.addClass('menuBtn')
-				.text(_('github.'))
-				.click(function() { window.open('https://github.com/Continuities/adarkroom'); })
-				.appendTo(menu);
 			
 			// Register keypress handlers
 			$('body').off('keydown').keydown(Engine.keyDown);
@@ -405,53 +387,6 @@
 			}
 		},
 	
-		share: function() {
-			Events.startEvent({
-				title: _('Share'),
-				scenes: {
-					start: {
-						text: [_('bring your friends.')],
-						buttons: {
-							'facebook': {
-								text: _('facebook'),
-								nextScene: 'end',
-								onChoose: function() {
-									window.open('https://www.facebook.com/sharer/sharer.php?u=' + Engine.SITE_URL, 'sharer', 'width=626,height=436,location=no,menubar=no,resizable=no,scrollbars=no,status=no,toolbar=no');
-								}
-							},
-							'google': {
-								text:_('google+'),
-								nextScene: 'end',
-								onChoose: function() {
-									window.open('https://plus.google.com/share?url=' + Engine.SITE_URL, 'sharer', 'width=480,height=436,location=no,menubar=no,resizable=no,scrollbars=no,status=no,toolbar=no');
-								}
-							},
-							'twitter': {
-								text: _('twitter'),
-								nextScene: 'end',
-								onChoose: function() {
-									window.open('https://twitter.com/intent/tweet?text=A%20Dark%20Room&url=' + Engine.SITE_URL, 'sharer', 'width=660,height=260,location=no,menubar=no,resizable=no,scrollbars=yes,status=no,toolbar=no');
-								}
-							},
-							'reddit': {
-								text: _('reddit'),
-								nextScene: 'end',
-								onChoose: function() {
-									window.open('http://www.reddit.com/submit?url=' + Engine.SITE_URL, 'sharer', 'width=960,height=700,location=no,menubar=no,resizable=no,scrollbars=yes,status=no,toolbar=no');
-								}
-							},
-							'close': {
-								text: _('close'),
-								nextScene: 'end'
-							}
-						}
-					}
-				}
-			},
-			{
-				width: '400px'
-			});
-		},
 
 		findStylesheet: function(title) {
 			for(var i=0; i<document.styleSheets.length; i++) {
