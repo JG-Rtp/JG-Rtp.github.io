@@ -18,17 +18,6 @@ var Button = {
 					$(this).data("handler")($(this));
 				}
 			})
-			.data("auto_reload", false)
-			.dblclick(function() {
-				var auto = !$(this).data("auto_reload");
-				$(this).data("auto_reload", auto);
-				if (auto) {
-					$('div.cooldown', $(this)).addClass('auto');
-				}
-				else {
-					$('div.cooldown', $(this)).removeClass('auto');
-				}
-			})
 			.data("handler",  typeof options.click == 'function' ? options.click : function() { Engine.log("click"); })
 			.data("remaining", 0)
 			.data("cooldown", typeof options.cooldown == 'number' ? options.cooldown : 0);
@@ -38,32 +27,13 @@ var Button = {
 		if(options.cost) {
 			var ttPos = options.ttPos ? options.ttPos : "bottom right";
 			var costTooltip = $('<div>').addClass('tooltip ' + ttPos);
-			var affordable = true;
 			for(var k in options.cost) {
-				var have = $SM.get("stores." + _(k));
-				var need = options.cost[k];
 				$("<div>").addClass('row_key').text(_(k)).appendTo(costTooltip);
-				$("<div>").addClass('row_val').text(need).appendTo(costTooltip);
-				if (have < need) affordable = false;
+				$("<div>").addClass('row_val').text(options.cost[k]).appendTo(costTooltip);
 			}
-			el.toggleClass('affordable', affordable);
 			if(costTooltip.children().length > 0) {
 				costTooltip.appendTo(el);
 			}
-			// Subscribe to stateUpdateEvent
-			$.Dispatch('stateUpdate').subscribe(function (e) {
-				if (e.category != 'stores') return;
-				var affordable = true;
-				for (var k in options.cost) {
-					var need = options.cost[k];
-					var have = $SM.get("stores." + _(k));
-					if (need > have) {
-						affordable = false;
-						break;
-					}
-				}
-				el.toggleClass('affordable', affordable);
-			});
 		}
 		
 		if(options.width) {
@@ -99,9 +69,6 @@ var Button = {
 				b.data('onCooldown', false);
 				if(!b.data('disabled')) {
 					b.removeClass('disabled');
-				}
-				if (b.data('auto_reload')) {
-					b.click();
 				}
 			});
 			btn.addClass('disabled');
