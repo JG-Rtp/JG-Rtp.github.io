@@ -35,13 +35,12 @@ var StateManager = {
 			'timers',
 			'game', 		//mostly location related: fire temp, workers, population, world map, etc
 			'playStats',	//anything play related: play time, loads, etc
-			'previous',		// prestige, score, trophies (in future), achievements (again, not yet), etc
-			'outfit'			// used to temporarily store the items to be taken on the path
+			'previous' 		// prestige, score, trophies (in future), achievements (again, not yet), etc
 		];
 		
 		for(var which in cats) {
 			if(!$SM.get(cats[which])) $SM.set(cats[which], {}); 
-		}
+		};
 		
 		//subscribe to stateUpdates
 		$.Dispatch('stateUpdate').subscribe($SM.handleStateUpdates);
@@ -52,11 +51,11 @@ var StateManager = {
 		var words = stateName.split(/[.\[\]'"]+/);
 		//for some reason there are sometimes empty strings
 		for (var i = 0; i < words.length; i++) {
-			if (words[i] === '') {
+			if (words[i] == '') {         
 				words.splice(i, 1);
 				i--;
 			}
-		}
+		};
 		var obj = State;
 		var w = null;
 		for(var i=0, len=words.length-1;i<len;i++){
@@ -84,7 +83,7 @@ var StateManager = {
 		}
 		
 		//stores values can not be negative
-		if(stateName.indexOf('stores') === 0 && $SM.get(stateName, true) < 0) {
+		if(stateName.indexOf('stores') == 0 && $SM.get(stateName, true) < 0) {
 			eval('('+fullPath+') = 0');
 			Engine.log('WARNING: state:' + stateName + ' can not be a negative value. Set to 0 instead.');
 		}
@@ -100,7 +99,7 @@ var StateManager = {
 		$SM.buildPath(parentName);
 		
 		//make sure the state exists to avoid errors,
-		if($SM.get(parentName) === undefined) $SM.set(parentName, {}, true);
+		if($SM.get(parentName) == undefined) $SM.set(parentName, {}, true);
 		
 		for(var k in list){
 			$SM.set(parentName+'["'+k+'"]', list[k], true);
@@ -140,10 +139,10 @@ var StateManager = {
 		var err = 0;
 		
 		//make sure the parent exists to avoid errors
-		if($SM.get(parentName) === undefined) $SM.set(parentName, {}, true);
+		if($SM.get(parentName) == undefined) $SM.set(parentName, {}, true);
 		
 		for(var k in list){
-			if($SM.add(parentName+'["'+k+'"]', list[k], true)) err++;
+			if(!$SM.add(parentName+'["'+k+'"]', list[k], true)) err++;
 		}
 		
 		if(!noEvent) {
@@ -188,7 +187,7 @@ var StateManager = {
 		if(!noEvent){
 			Engine.saveGame();
 			$SM.fireUpdate(stateName);
-		}
+		};
 	},
 	
 	//creates full reference from input
@@ -231,7 +230,7 @@ var StateManager = {
 			$SM.remove('income.hunter', true);
 			Engine.log('upgraded save to v1.1');
 			version = 1.1;
-		}
+		};
 		if(version == 1.1) {
 			//v1.2 added the Swamp to the map, so add it to already generated maps
 			if($SM.get('world')) {
@@ -239,7 +238,7 @@ var StateManager = {
 			}
 			Engine.log('upgraded save to v1.2');
 			version = 1.2;
-		}
+		};
 		if(version == 1.2) {
 			//StateManager added, so move data to new locations
 			$SM.remove('room.fire');
@@ -249,7 +248,7 @@ var StateManager = {
 				$SM.set('features.location.room', true);
 				$SM.set('game.builder.level', $SM.get('room.builder'));
 				$SM.remove('room');
-			}
+			};
 			if($SM.get('outside')){
 				$SM.set('features.location.outside', true);
 				$SM.set('game.population', $SM.get('outside.population'));
@@ -257,7 +256,7 @@ var StateManager = {
 				$SM.set('game.workers', $SM.get('outside.workers'));
 				$SM.set('game.outside.seenForest', $SM.get('outside.seenForest'));
 				$SM.remove('outside');
-			}
+			};
 			if($SM.get('world')){
 				$SM.set('features.location.world', true);
 				$SM.set('game.world.map', $SM.get('world.map'));
@@ -267,7 +266,7 @@ var StateManager = {
 				$SM.remove('world');
 				$SM.remove('starved');
 				$SM.remove('dehydrated');
-			}
+			};
 			if($SM.get('ship')){
 				$SM.set('features.location.spaceShip', true);
 				$SM.set('game.spaceShip.hull', $SM.get('ship.hull', true));
@@ -275,29 +274,29 @@ var StateManager = {
 				$SM.set('game.spaceShip.seenWarning', $SM.get('ship.seenWarning'));
 				$SM.set('game.spaceShip.seenShip', $SM.get('ship.seenShip'));
 				$SM.remove('ship');
-			}
+			};
 			if($SM.get('punches')){
 				$SM.set('character.punches', $SM.get('punches'));
 				$SM.remove('punches');
-			}
+			};
 			if($SM.get('perks')){
 				$SM.set('character.perks', $SM.get('perks'));
 				$SM.remove('perks');
-			}
+			};
 			if($SM.get('thieves')){
 				$SM.set('game.thieves', $SM.get('thieves'));
 				$SM.remove('thieves');
-			}
+			};
 			if($SM.get('stolen')){
 				$SM.set('game.stolen', $SM.get('stolen'));
 				$SM.remove('stolen');
-			}
+			};
 			if($SM.get('cityCleared')){
 				$SM.set('character.cityCleared', $SM.get('cityCleared'));
 				$SM.remove('cityCleared');
-			}
+			};
 			$SM.set('version', 1.3);
-		}
+		};
 	},
 	
 	/******************************************************************
@@ -344,22 +343,7 @@ var StateManager = {
 				if(income.timeLeft <= 0) {
 					Engine.log('collection income from ' + source);
 					if(source == 'thieves')	$SM.addStolen(income.stores);
-
-					var cost = income.stores;
-					var ok = true;
-					if (source != 'thieves') {
-					    for (var k in cost) {
-					        var have = $SM.get('stores["' + k + '"]', true);
-					        if (have + cost[k] < 0) {
-					            ok = false;
-					            break;
-					        }
-					    }
-					}
-
-					if(ok){
-						$SM.addM('stores', income.stores, true);
-					}
+					$SM.addM('stores', income.stores, true);
 					changed = true;
 					if(typeof income.delay == 'number') {
 						income.timeLeft = income.delay;
@@ -369,7 +353,7 @@ var StateManager = {
 		}
 		if(changed){
 			$SM.fireUpdate('income', true);
-		}
+		};
 		Engine._incomeTimeout = setTimeout($SM.collectIncome, 1000);
 	},
 	
@@ -377,14 +361,14 @@ var StateManager = {
 	addStolen: function(stores) {
 		for(var k in stores) {
 			var old = $SM.get('stores["'+k+'"]', true);
-			var short = old + stores[k];
+			var short = old - stores[k];
 			//if they would steal more than actually owned
 			if(short < 0){
 				$SM.add('game.stolen["'+k+'"]', (stores[k] * -1) + short);
 			} else {
 				$SM.add('game.stolen["'+k+'"]', stores[k] * -1);
 			}
-		}
+		};
 	},
 	
 	startThieves: function() {
