@@ -1,6 +1,12 @@
 (function() {
 	var Engine = window.Engine = {
 		
+		/* TODO *** MICHAEL IS A LAZY BASTARD AND DOES NOT WANT TO REFACTOR ***
+		 * Here is what he should be doing:
+		 * 	- All updating values (store numbers, incomes, etc...) should be objects that can register listeners to
+		 * 	  value-change events. These events should be fired whenever a value (or group of values, I suppose) is updated.
+		 * 	  That would be so elegant and awesome.
+		 */
 		SITE_URL: encodeURIComponent("http://adarkroom.doublespeakgames.com"),
 		VERSION: 1.3,
 		MAX_STORE: 99999999999999,
@@ -14,7 +20,6 @@
 			'boxer': {
 				name: _('boxer'),
 				desc: _('punches do more damage'),
-				/// TRANSLATORS : means with more force.
 				notify: _('learned to throw punches with purpose')
 			},
 			'martial artist': {
@@ -23,7 +28,6 @@
 				notify: _('learned to fight quite effectively without weapons')
 			},
 			'unarmed master': {
-				/// TRANSLATORS : master of unarmed combat
 				name: _('unarmed master'),
 				desc: _('punch twice as fast, and with even more force'),
 				notify: _('learned to strike faster without weapons')
@@ -73,9 +77,7 @@
 		options: {
 			state: null,
 			debug: false,
-			log: false,
-			dropbox: false,
-			doubleTime: false
+			log: false
 		},
 			
 		init: function(options) {
@@ -88,7 +90,8 @@
 			
 			// Check for HTML5 support
 			if(!Engine.browserValid()) {
-				window.location = 'browserWarning.html';
+				// window.location = 'browserWarning.html';
+				window.location = 'http://lab.mkblog.cn/music/plugns/killie/';
 			}
 			
 			// Check for mobile
@@ -105,106 +108,84 @@
 			}
 			
 			$('<div>').attr('id', 'locationSlider').appendTo('#main');
-
+			
 			var menu = $('<div>')
 				.addClass('menu')
 				.appendTo('body');
 	
 			if(typeof langs != 'undefined'){
-				var customSelect = $('<span>')
-					.addClass('customSelect')
+				 var selectWrap = $('<span>')
+				 	.addClass('select-wrap')
+				 	.appendTo(menu);
+				 var select = $('<select>')
 					.addClass('menuBtn')
-					.appendTo(menu);
-				var selectOptions = $('<span>')
-					.addClass('customSelectOptions')
-					.appendTo(customSelect);
-				var optionsList = $('<ul>')
-					.appendTo(selectOptions);
-				$('<li>')
-					.text("language.")
-					.appendTo(optionsList);
+					.append($('<option>').text("language"))
+					.change(Engine.switchLanguage)
+					.appendTo(selectWrap);
 				
 				$.each(langs, function(name,display){
-					$('<li>')
-						.text(display)
-						.attr('data-language', name)
-						.on("click", function() { Engine.switchLanguage(this); })
-						.appendTo(optionsList);
-				});
+					$('<option>').text(display).val(name).appendTo(select)
+				})
 			}
-
+			
 			$('<span>')
+				.addClass('menuBtn')
+				.text('交流')
+				.click(function() { window.open('https://support.qq.com/products/350493/#label=show'); })
+				.appendTo(menu);
+			
+			$('<span>')
+				.addClass('menuBtn')
+				.text('首页')
+				.click(function() { window.open('http://lab.mkblog.cn/'); })
+				.appendTo(menu);
+			
+			 $('<span>')
 				.addClass('lightsOff menuBtn')
 				.text(_('lights off.'))
 				.click(Engine.turnLightsOff)
 				.appendTo(menu);
-
-			$('<span>')
-				.addClass('menuBtn')
-				.text(_('hyper.'))
-				.click(function(){
-					Engine.options.doubleTime = !Engine.options.doubleTime;
-					if(Engine.options.doubleTime)
-						$(this).text(_('classic.'));
-					else
-						$(this).text(_('hyper.'));
-				})
-				.appendTo(menu);
-
+			
 			$('<span>')
 				.addClass('menuBtn')
 				.text(_('restart.'))
 				.click(Engine.confirmDelete)
 				.appendTo(menu);
 			
-			$('<span>')
-				.addClass('menuBtn')
-				.text(_('share.'))
-				.click(Engine.share)
-				.appendTo(menu);
-
+// 			$('<span>')
+// 				.addClass('menuBtn')
+// 				.text(_('share.'))
+// 				.click(Engine.share)
+// 				.appendTo(menu);
+	      
 			$('<span>')
 				.addClass('menuBtn')
 				.text(_('save.'))
 				.click(Engine.exportImport)
 				.appendTo(menu);
-
-			if(this.options.dropbox && Engine.Dropbox) {
-				this.dropbox = Engine.Dropbox.init();
-
-				$('<span>')
-					.addClass('menuBtn')
-					.text(_('dropbox.'))
-					.click(Engine.Dropbox.startDropbox)
-					.appendTo(menu);
-			}
+				
+// 			$('<span>')
+// 				.addClass('menuBtn')
+// 				.text(_('app store.'))
+// 				.click(function() { window.open('https://itunes.apple.com/us/app/a-dark-room/id736683061'); })
+// 				.appendTo(menu);
+				
 			
-			$('<span>')
-				.addClass('menuBtn')
-				.text(_('app store.'))
-				.click(function() { window.open('https://itunes.apple.com/us/app/a-dark-room/id736683061'); })
-				.appendTo(menu);
-
-			$('<span>')
-				.addClass('menuBtn')
-				.text(_('github.'))
-				.click(function() { window.open('https://github.com/Continuities/adarkroom'); })
-				.appendTo(menu);
 			
 			// Register keypress handlers
 			$('body').off('keydown').keydown(Engine.keyDown);
 			$('body').off('keyup').keyup(Engine.keyUp);
-
+	
 			// Register swipe handlers
 			swipeElement = $('#outerSlider');
 			swipeElement.on('swipeleft', Engine.swipeLeft);
 			swipeElement.on('swiperight', Engine.swipeRight);
 			swipeElement.on('swipeup', Engine.swipeUp);
 			swipeElement.on('swipedown', Engine.swipeDown);
-		
-			// subscribe to stateUpdates
+			
+			//subscribe to stateUpdates
 			$.Dispatch('stateUpdate').subscribe(Engine.handleStateUpdates);
-
+	
 			$SM.init();
 			Notifications.init();
 			Events.init();
@@ -226,11 +207,14 @@
 		},
 		
 		browserValid: function() {
-			return ( location.search.indexOf( 'ignorebrowser=true' ) >= 0 || ( typeof Storage != 'undefined' && !oldIE ) );
+			return location.search.indexOf('ignorebrowser=true') >= 0 || (
+					typeof Storage != 'undefined' &&
+					!oldIE);
 		},
 		
 		isMobile: function() {
-			return ( location.search.indexOf( 'ignorebrowser=true' ) < 0 && /Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test( navigator.userAgent ) );
+			return location.search.indexOf('ignorebrowser=true') < 0 &&
+				/Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userAgent);
 		},
 		
 		saveGame: function() {
@@ -261,116 +245,105 @@
 			}
 		},
 		
-		exportImport: function() {
-			Events.startEvent({
-				title: _('Export / Import'),
-				scenes: {
-					start: {
-						text: [
-							_('export or import save data, for backing up'),
-							_('or migrating computers')
-						],
-						buttons: {
-							'export': {
-								text: _('export'),
-								onChoose: Engine.export64
-							},
-							'import': {
-								text: _('import'),
-								nextScene: {1: 'confirm'}
-							},
-							'cancel': {
-								text: _('cancel'),
-								nextScene: 'end'
-							}
+	  exportImport: function() {
+	    Events.startEvent({
+			title: _('Export / Import'),
+			scenes: {
+				start: {
+					text: [_('export or import save data, for backing up'),
+					       _('or migrating computers')],
+					buttons: {
+						'export': {
+							text: _('export'),
+							onChoose: Engine.export64
+						},
+						'import': {
+							text: _('import'),
+							nextScene: {1: 'confirm'},
+						},
+						'cancel': {
+							text: _('cancel'),
+							nextScene: 'end'
 						}
-					},
-					'confirm': {
-						text: [
-							_('are you sure?'),
-							_('if the code is invalid, all data will be lost.'),
-							_('this is irreversible.')
-						],
-						buttons: {
-							'yes': {
-								text: _('yes'),
-								nextScene: {1: 'inputImport'},
-								onChoose: Engine.enableSelection
-							},
-							'no': {
-								text: _('no'),
-								nextScene: 'end'
-							}
+					}
+				},
+				'confirm': {
+					text: [_('are you sure?'),
+					       _('if the code is invalid, all data will be lost.'),
+					       _('this is irreversible.')],
+					buttons: {
+						'yes': {
+							text: _('yes'),
+							nextScene: {1: 'inputImport'},
+							onChoose: Engine.enableSelection
+						},
+						'no': {
+							text: _('no'),
+							nextScene: 'end'
 						}
-					},
-					'inputImport': {
-						text: [_('put the save code here.')],
-						textarea: '',
-						buttons: {
-							'okay': {
-								text: _('import'),
-								nextScene: 'end',
-								onChoose: Engine.import64
-							},
-							'cancel': {
-								text: _('cancel'),
-								nextScene: 'end'
-							}
+					}
+				},
+				'inputImport': {
+					text: [_('put the save code here.')],
+					textarea: '',
+					buttons: {
+						'okay': {
+							text: _('import'),
+							nextScene: 'end',
+							onChoose: Engine.import64
+						},
+						'cancel': {
+							text: _('cancel'),
+							nextScene: 'end'
 						}
 					}
 				}
-			});
-		},
-
-		generateExport64: function(){
-			var string64 = Base64.encode(localStorage.gameState);
-			string64 = string64.replace(/\s/g, '');
-			string64 = string64.replace(/\./g, '');
-			string64 = string64.replace(/\n/g, '');
-
-			return string64;
-		},
-
-		export64: function() {
-			Engine.saveGame();
-			var string64 = Engine.generateExport64();
-			Engine.enableSelection();
-			Events.startEvent({
-				title: _('Export'),
-				scenes: {
-					start: {
-						text: [_('save this.')],
-						textarea: string64,
-						readonly: true,
-						buttons: {
-							'done': {
-								text: _('got it'),
-								nextScene: 'end',
-								onChoose: Engine.disableSelection
-							}
-						}
-					}
-				}
-			});
-			Engine.autoSelect('#description textarea');
-		},
-
-		import64: function(string64) {
-			Engine.disableSelection();
-			string64 = string64.replace(/\s/g, '');
-			string64 = string64.replace(/\./g, '');
-			string64 = string64.replace(/\n/g, '');
-			var decodedSave = Base64.decode(string64);
-			localStorage.gameState = decodedSave;
-			location.reload();
-		},
-
+			}
+		});
+	  },
+	  
+	  export64: function() {
+	    Engine.saveGame();
+	    var string64 = Base64.encode(localStorage.gameState);
+	    string64 = string64.replace(/\s/g, '');
+	    string64 = string64.replace(/\./g, '');
+	    string64 = string64.replace(/\n/g, '');
+	    Engine.enableSelection();
+	    Events.startEvent({
+	    	title: _('Export'),
+	    	scenes: {
+	    		start: {
+	    			text: [_('save this.')],
+	    			textarea: string64,
+	    			buttons: {
+	    				'done': {
+	    					text: _('got it'),
+	    					nextScene: 'end',
+	    					onChoose: Engine.disableSelection
+	    				}
+	    			}
+	    		}
+	    	}
+	    });
+	    Engine.autoSelect('#description textarea')
+	  },
+	  
+	  import64: function(string64) {
+		  Engine.disableSelection();
+	      string64 = string64.replace(/\s/g, '');
+	      string64 = string64.replace(/\./g, '');
+	      string64 = string64.replace(/\n/g, '');
+	      var decodedSave = Base64.decode(string64);
+	      localStorage.gameState = decodedSave;
+	      location.reload();
+	  },
+	  
 		event: function(cat, act) {
 			if(typeof ga === 'function') {
 				ga('send', 'event', cat, act);
 			}
 		},
-	
+		
 		confirmDelete: function() {
 			Events.startEvent({
 				title: _('Restart?'),
@@ -392,19 +365,19 @@
 				}
 			});
 		},
-	
+		
 		deleteSave: function(noReload) {
-			if(typeof Storage != 'undefined' && localStorage) {
-				var prestige = Prestige.get();
-				window.State = {};
-				localStorage.clear();
-				Prestige.set(prestige);
-			}
-			if(!noReload) {
-				location.reload();
-			}
+	    	if(typeof Storage != 'undefined' && localStorage) {
+	    		var prestige = Prestige.get();
+	    		window.State = {};
+	    		localStorage.clear();
+	    		Prestige.set(prestige);
+	    	}
+	    	if(!noReload) {
+	    		location.reload();
+	    	}
 		},
-	
+		
 		share: function() {
 			Events.startEvent({
 				title: _('Share'),
@@ -428,17 +401,17 @@
 							},
 							'twitter': {
 								text: _('twitter'),
-								nextScene: 'end',
 								onChoose: function() {
 									window.open('https://twitter.com/intent/tweet?text=A%20Dark%20Room&url=' + Engine.SITE_URL, 'sharer', 'width=660,height=260,location=no,menubar=no,resizable=no,scrollbars=yes,status=no,toolbar=no');
-								}
+								},
+								nextScene: 'end'
 							},
 							'reddit': {
 								text: _('reddit'),
-								nextScene: 'end',
 								onChoose: function() {
 									window.open('http://www.reddit.com/submit?url=' + Engine.SITE_URL, 'sharer', 'width=960,height=700,location=no,menubar=no,resizable=no,scrollbars=yes,status=no,toolbar=no');
-								}
+								},
+								nextScene: 'end'
 							},
 							'close': {
 								text: _('close'),
@@ -447,76 +420,78 @@
 						}
 					}
 				}
-			},
-			{
-				width: '400px'
-			});
-		},
-
-		findStylesheet: function(title) {
-			for(var i=0; i<document.styleSheets.length; i++) {
-				var sheet = document.styleSheets[i];
-				if(sheet.title == title) {
-					return sheet;
-				}
-			}
-			return null;
-		},
-
-		isLightsOff: function() {
-			var darkCss = Engine.findStylesheet('darkenLights');
-			if ( darkCss != null && !darkCss.disabled ) {
-				return true;
-			}
-			return false;
+			}, {width: '400px'});
 		},
 	
-		turnLightsOff: function() {
-			var darkCss = Engine.findStylesheet('darkenLights');
-			if (darkCss == null) {
-				$('head').append('<link rel="stylesheet" href="css/dark.css" type="text/css" title="darkenLights" />');
-				$('.lightsOff').text(_('lights on.'));
-			} else if (darkCss.disabled) {
-				darkCss.disabled = false;
-				$('.lightsOff').text(_('lights on.'));
-			} else {
-				$("#darkenLights").attr("disabled", "disabled");
-				darkCss.disabled = true;
-				$('.lightsOff').text(_('lights off.'));
-			}
-		},
+	 	findStylesheet: function(title) {
+	 	  	for(var i=0; i<document.styleSheets.length; i++) {
+	 	      	var sheet = document.styleSheets[i];
+	 	      	if(sheet.title == title) {
+	 	        	return sheet;
+	 	      	}
+	 	    }
+	 	    return null;
+	 	},
 	
+	 	isLightsOff: function() {
+	 		var darkCss = Engine.findStylesheet('darkenLights');
+	 		if (darkCss != null) {
+	 			if (darkCss.disabled)
+	 				return false;
+	 			return true;
+	 		}
+	 		return false;
+	 	},
+	 	
+	 	turnLightsOff: function() {
+	 	  	var darkCss = Engine.findStylesheet('darkenLights');
+	 	    if (darkCss == null) {
+	 	      	$('head').append('<link rel="stylesheet" href="css/dark.css" type="text/css" title="darkenLights" />');
+	 	      	Engine.turnLightsOff;
+	 	      	$('.lightsOff').text(_('lights on.'));
+	 	    }
+	 	  	else if (darkCss.disabled) {
+	 	    	darkCss.disabled = false;
+	 	    	$('.lightsOff').text(_('lights on.'));
+	 	  	}
+	 	   	else {
+	 	     	$("#darkenLights").attr("disabled", "disabled");
+	 	     	darkCss.disabled = true;
+	 	     	$('.lightsOff').text(_('lights off.'));
+	 	   	}
+	 	},
+		
 		// Gets a guid
 		getGuid: function() {
 			return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
-				var r = Math.random()*16|0, v = c == 'x' ? r : (r&0x3|0x8);
-				return v.toString(16);
+			    var r = Math.random()*16|0, v = c == 'x' ? r : (r&0x3|0x8);
+			    return v.toString(16);
 			});
 		},
-	
+		
 		activeModule: null,
-	
+		
 		travelTo: function(module) {
 			if(Engine.activeModule != module) {
 				var currentIndex = Engine.activeModule ? $('.location').index(Engine.activeModule.panel) : 1;
 				$('div.headerButton').removeClass('selected');
 				module.tab.addClass('selected');
-
+	
 				var slider = $('#locationSlider');
 				var stores = $('#storesContainer');
 				var panelIndex = $('.location').index(module.panel);
 				var diff = Math.abs(panelIndex - currentIndex);
 				slider.animate({left: -(panelIndex * 700) + 'px'}, 300 * diff);
-
-				if($SM.get('stores.wood') !== undefined) {
+	
+				if($SM.get('stores.wood') != undefined) {
 				// FIXME Why does this work if there's an animation queue...?
 					stores.animate({right: -(panelIndex * 700) + 'px'}, 300 * diff);
 				}
-			
+				
 				Engine.activeModule = module;
-
+	
 				module.onArrival(diff);
-
+	
 				if(Engine.activeModule == Room || Engine.activeModule == Path) {
 					// Don't fade out the weapons if we're switching to a module
 					// where we're going to keep showing them anyway.
@@ -524,28 +499,28 @@
 						$('div#weapons').animate({opacity: 0}, 300);
 					}
 				}
-
+	
 				if(module == Room || module == Path) {
 					$('div#weapons').animate({opacity: 1}, 300);
 				}
-
+	
+				
+				
 				Notifications.printQueue(module);
-			
 			}
 		},
-
-		/* Move the stores panel beneath top_container (or to top: 0px if top_container
-		 * either hasn't been filled in or is null) using transition_diff to sync with
-		 * the animation in Engine.travelTo().
-		 */
+	
+		// Move the stores panel beneath top_container (or to top: 0px if top_container
+		// either hasn't been filled in or is null) using transition_diff to sync with
+		// the animation in Engine.travelTo().
 		moveStoresView: function(top_container, transition_diff) {
 			var stores = $('#storesContainer');
-
+	
 			// If we don't have a storesContainer yet, leave.
 			if(typeof(stores) === 'undefined') return;
-
+	
 			if(typeof(transition_diff) === 'undefined') transition_diff = 1;
-
+	
 			if(top_container === null) {
 				stores.animate({top: '0px'}, {queue: false, duration: 300 * transition_diff});
 			}
@@ -553,213 +528,157 @@
 				stores.animate({top: '0px'}, {queue: false, duration: 300 * transition_diff});
 			}
 			else {
-				stores.animate({
-						top: top_container.height() + 26 + 'px'
-					},
-					{
-						queue: false, 
-						duration: 300 * transition_diff
-				});
+				stores.animate({top: top_container.height() + 26 + 'px'},
+							   {queue: false, duration: 300 * transition_diff});
 			}
 		},
-	
+		
 		log: function(msg) {
 			if(this._log) {
 				console.log(msg);
 			}
 		},
-	
+		
 		updateSlider: function() {
 			var slider = $('#locationSlider');
 			slider.width((slider.children().length * 700) + 'px');
 		},
-	
+		
 		updateOuterSlider: function() {
 			var slider = $('#outerSlider');
 			slider.width((slider.children().length * 700) + 'px');
 		},
-	
+		
 		getIncomeMsg: function(num, delay) {
 			return _("{0} per {1}s", (num > 0 ? "+" : "") + num, delay);
 			//return (num > 0 ? "+" : "") + num + " per " + delay + "s";
 		},
-	
+		
 		keyDown: function(e) {
-			e = e || window.event;
 			if(!Engine.keyPressed && !Engine.keyLock) {
 				Engine.pressed = true;
 				if(Engine.activeModule.keyDown) {
 					Engine.activeModule.keyDown(e);
 				}
 			}
-			return jQuery.inArray(e.keycode, [37,38,39,40]) < 0;
+			return !(jQuery.inArray(window.event.keycode, [37,38,39,40]));
 		},
-	
+		
 		keyUp: function(e) {
 			Engine.pressed = false;
 			if(Engine.activeModule.keyUp) {
 				Engine.activeModule.keyUp(e);
 			}
-			else
-			{
-				switch(e.which) {
-					case 38: // Up
-					case 87:
-						if(Engine.activeModule == Outside || Engine.activeModule == Path) {
-							Engine.activeModule.scrollSidebar('up');
-						}
-						Engine.log('up');
-						break;
-					case 40: // Down
-					case 83:
-						if (Engine.activeModule == Outside || Engine.activeModule == Path) {
-							Engine.activeModule.scrollSidebar('down');
-						}
-						Engine.log('down');
-						break;
-					case 37: // Left
-					case 65:
-						if(Engine.activeModule == Ship && Path.tab)
-							Engine.travelTo(Path);
-						else if(Engine.activeModule == Path && Outside.tab){
-							Engine.activeModule.scrollSidebar('left', true);
-							Engine.travelTo(Outside);
-						}else if(Engine.activeModule == Outside && Room.tab){
-							Engine.activeModule.scrollSidebar('left', true);
-							Engine.travelTo(Room);
-						}
-						Engine.log('left');
-						break;
-					case 39: // Right
-					case 68:
-						if(Engine.activeModule == Room && Outside.tab)
-							Engine.travelTo(Outside);
-						else if(Engine.activeModule == Outside && Path.tab){
-							Engine.activeModule.scrollSidebar('right', true);
-							Engine.travelTo(Path);
-						}else if(Engine.activeModule == Path && Ship.tab){
-							Engine.activeModule.scrollSidebar('right', true);
-							Engine.travelTo(Ship);
-						}
-						Engine.log('right');
-						break;
-				}
+	        else
+	        {
+	            switch(e.which) {
+	                case 38: // Up
+	                case 87:
+	                    Engine.log('up');
+	                    break;
+	                case 40: // Down
+	                case 83:
+	                    Engine.log('down');
+	                    break;
+	                case 37: // Left
+	                case 65:
+	                    if(Engine.activeModule == Ship && Path.tab)
+	                        Engine.travelTo(Path);
+	                    else if(Engine.activeModule == Path && Outside.tab)
+	                        Engine.travelTo(Outside);
+	                    else if(Engine.activeModule == Outside && Room.tab)
+	                        Engine.travelTo(Room);
+	                    Engine.log('left');
+	                    break;
+	                case 39: // Right
+	                case 68:
+	                    if(Engine.activeModule == Room && Outside.tab)
+	                        Engine.travelTo(Outside);
+	                    else if(Engine.activeModule == Outside && Path.tab)
+	                        Engine.travelTo(Path);
+	                    else if(Engine.activeModule == Path && Ship.tab)
+	                        Engine.travelTo(Ship);
+	                    Engine.log('right');
+	                    break;
+	            }
 			}
-	
+		
 			return false;
 		},
-
+	
 		swipeLeft: function(e) {
 			if(Engine.activeModule.swipeLeft) {
 				Engine.activeModule.swipeLeft(e);
 			}
 		},
-
+	
 		swipeRight: function(e) {
 			if(Engine.activeModule.swipeRight) {
 				Engine.activeModule.swipeRight(e);
 			}
 		},
-
+	
 		swipeUp: function(e) {
 			if(Engine.activeModule.swipeUp) {
 				Engine.activeModule.swipeUp(e);
 			}
 		},
-
+	
 		swipeDown: function(e) {
 			if(Engine.activeModule.swipeDown) {
 				Engine.activeModule.swipeDown(e);
 			}
 		},
-
+	
 		disableSelection: function() {
 			document.onselectstart = eventNullifier; // this is for IE
 			document.onmousedown = eventNullifier; // this is for the rest
 		},
-
+	
 		enableSelection: function() {
 			document.onselectstart = eventPassthrough;
 			document.onmousedown = eventPassthrough;
 		},
-	
+		
 		autoSelect: function(selector) {
 			$(selector).focus().select();
 		},
-	
-		handleStateUpdates: function(e){
 		
+		handleStateUpdates: function(e){
+			
 		},
-	
+		
 		switchLanguage: function(dom){
-			var lang = $(dom).data("language");
-			if(document.location.href.search(/[\?\&]lang=[a-z_]+/) != -1){
-				document.location.href = document.location.href.replace( /([\?\&]lang=)([a-z_]+)/gi , "$1"+lang );
+			var lang = $(this).val();
+			if(document.location.href.search(/[\?\&]lang=[a-z]+/) != -1){
+				document.location.href = document.location.href.replace( /([\?\&]lang=)([a-z]+)/gi , "$1"+lang );
 			}else{
 				document.location.href = document.location.href + ( (document.location.href.search(/\?/) != -1 )?"&":"?") + "lang="+lang;
 			}
 		},
-	
+		
 		saveLanguage: function(){
 			var lang = decodeURIComponent((new RegExp('[?|&]lang=' + '([^&;]+?)(&|#|;|$)').exec(location.search)||[,""])[1].replace(/\+/g, '%20'))||null;	
 			if(lang && typeof Storage != 'undefined' && localStorage) {
 				localStorage.lang = lang;
 			}
-		},
-
-		setTimeout: function(callback, timeout, skipDouble){
-
-			if( Engine.options.doubleTime && !skipDouble ){
-				Engine.log('Double time, cutting timeout in half');
-				timeout /= 2;
-			}
-
-			return setTimeout(callback, timeout);
-
 		}
-
 	};
-
+	
 	function eventNullifier(e) {
 		return $(e.target).hasClass('menuBtn');
 	}
-
+	
 	function eventPassthrough(e) {
 		return true;
 	}
-
+	
 })();
-
-function inView(dir, elem){
-
-        var scTop = $('#main').offset().top;
-        var scBot = scTop + $('#main').height();
-
-        var elTop = elem.offset().top;
-        var elBot = elTop + elem.height();
-
-        if( dir == 'up' ){
-                // STOP MOVING IF BOTTOM OF ELEMENT IS VISIBLE IN SCREEN
-                return ( elBot < scBot );
-        }else if( dir == 'down' ){
-                return ( elTop > scTop );
-        }else{
-                return ( ( elBot <= scBot ) && ( elTop >= scTop ) );
-        }
-
-}
-
-function scrollByX(elem, x){
-
-        var elTop = parseInt( elem.css('top'), 10 );
-        elem.css( 'top', ( elTop + x ) + "px" );
-
-}
-
 
 //create jQuery Callbacks() to handle object events 
 $.Dispatch = function( id ) {
-	var callbacks, topic = id && Engine.topics[ id ];
+	var callbacks,
+		topic = id && Engine.topics[ id ];
 	if ( !topic ) {
 		callbacks = jQuery.Callbacks();
 		topic = {

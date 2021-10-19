@@ -40,8 +40,8 @@ var Prestige = {
 		
 		for(var i in this.storesMap) {
 			var s = this.storesMap[i];
-			stores.push(Math.floor($SM.get('stores["' + s.store + '"]', true) / 
-					(reduce ? this.randGen(s.type) : 1)));
+			stores.push($SM.get('stores["' + s.store + '"]', true) / 
+					(reduce ? this.randGen(s.type) : 1));
 		}
 		
 		return stores;
@@ -80,24 +80,16 @@ var Prestige = {
 	},
 
 	randGen : function(storeType) {
-		var amount;
 		switch(storeType) {
 		case 'g':
-			amount = Math.floor(Math.random() * 10);
-			break;
+			return Math.floor(Math.random() * 10);
 		case 'w':
-			amount = Math.floor(Math.floor(Math.random() * 10) / 2);
-			break;
+			return Math.floor(Math.floor(Math.random() * 10) / 2);
 		case 'a':
-			amount = Math.ceil(Math.random() * 10 * Math.ceil(Math.random() * 10));
-			break;
+			return Math.ceil(Math.random() * 10 * Math.ceil(Math.random() * 10));
 		default:
 			return 1;
 		}
-		if (amount !== 0) {
-			return amount;
-		}
-		return 1;
 	}
 
 };
