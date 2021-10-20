@@ -476,6 +476,8 @@ var Room = {
 			$SM.set('game.builder.level', -1);
 		}
 		
+                                $SM.set('game.temperature', $SM.get('game.temperature.value')===undefined?this.TempEnum.Freezing:$SM.get('game.temperature'));
+		$SM.set('game.fire', $SM.get('game.fire.value')===undefined?this.FireEnum.Dead:$SM.get('game.fire'));
 		Room.temperature = this.TempEnum.Cold;
 		Room.fire = this.FireEnum.Dead;
 		
@@ -682,33 +684,33 @@ var Room = {
 	
 	coolFire: function() {
 		var wood = $SM.get('stores.wood');
-		if(Room.fire.value <= Room.FireEnum.Flickering.value &&
+		if($SM.get('game.fire.value') <= Room.FireEnum.Flickering.value &&
 			$SM.get('game.builder.level') > 3 && wood > 0) {
 			Notifications.notify(Room, _("builder stokes the fire"), true);
 			$SM.set('stores.wood', wood - 1);
-			Room.fire = Room.FireEnum.fromInt(Room.fire.value + 1);
+			$SM.set('game.fire',Room.FireEnum.fromInt($SM.get('game.fire.value') + 1));
 		}
-		if(Room.fire.value > 0) {
-			Room.fire = Room.FireEnum.fromInt(Room.fire.value - 1);
-			Room._fireTimer = setTimeout(Room.coolFire, Room._FIRE_COOL_DELAY);
+		if($SM.get('game.fire.value') > 0) {
+			$SM.set('game.fire',Room.FireEnum.fromInt($SM.get('game.fire.value') - 1));
+			Room._fireTimer = Engine.setTimeout(Room.coolFire, Room._FIRE_COOL_DELAY);
 			Room.onFireChange();
 		}
 	},
 	
 	adjustTemp: function() {
-		var old = Room.temperature.value;
-		if(Room.temperature.value > 0 && Room.temperature.value > Room.fire.value) {
-			Room.temperature = Room.TempEnum.fromInt(Room.temperature.value - 1);
-			Notifications.notify(Room, _("the room is {0}" , Room.temperature.text), true);
+		var old = $SM.get('game.temperature.value');
+		if($SM.get('game.temperature.value') > 0 && $SM.get('game.temperature.value') > $SM.get('game.fire.value')) {
+			$SM.set('game.temperature',Room.TempEnum.fromInt($SM.get('game.temperature.value') - 1));
+			Notifications.notify(Room, _("the room is {0}" , Room.TempEnum.fromInt($SM.get('game.temperature.value')).text), true);
 		}
-		if(Room.temperature.value < 4 && Room.temperature.value < Room.fire.value) {
-			Room.temperature = Room.TempEnum.fromInt(Room.temperature.value + 1);
-			Notifications.notify(Room, _("the room is {0}" , Room.temperature.text), true);
+		if($SM.get('game.temperature.value') < 4 && $SM.get('game.temperature.value') < $SM.get('game.fire.value')) {
+			$SM.set('game.temperature', Room.TempEnum.fromInt($SM.get('game.temperature.value') + 1));
+			Notifications.notify(Room, _("the room is {0}" , Room.TempEnum.fromInt($SM.get('game.temperature.value')).text), true);
 		}
-		if(Room.temperature.value != old) {
+		if($SM.get('game.temperature.value') != old) {
 			Room.changed = true;
 		}
-		Room._tempTimer = setTimeout(Room.adjustTemp, Room._ROOM_WARM_DELAY);
+		Room._tempTimer = Engine.setTimeout(Room.adjustTemp, Room._ROOM_WARM_DELAY);
 	},
 	
 	unlockForest: function() {
