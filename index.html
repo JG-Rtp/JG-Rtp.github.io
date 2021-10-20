@@ -172,229 +172,225 @@
 		<script src="js/index.js"></script><!-- 核心插件 -->
 		<script src="js/all.js"></script><!-- 图标库 -->
 		<script src="js/Sitetime.js"></script><!-- 运行时间 -->
-		<script src="js/Mouse.js"></script><!-- 点击烟花特效 -->
-	        <div class="deng-box">
-    <div class="deng">
-      <div class="xian"></div>
-      <div class="deng-a">
-        <div class="deng-b">
-          <div class="deng-t">故</div>
-        </div>
-      </div>
-      <div class="shui shui-a">
-        <div class="shui-c"></div>
-        <div class="shui-b"></div>
-      </div>
-    </div>
-  </div>
-  <div class="deng-box1">
-    <div class="deng">
-      <div class="xian"></div>
-      <div class="deng-a">
-        <div class="deng-b">
-          <div class="deng-t">敬</div>
-        </div>
-      </div>
-      <div class="shui shui-a">
-        <div class="shui-c"></div>
-        <div class="shui-b"></div>
-      </div>
-    </div>
-  </div>
-  <style>
-    .deng-box {
-      position: fixed;
-      top: -30px;
-      right: -20px;
-      z-index: 9999;
-      pointer-events: none;
-    }
+		<!--<script src="js/Mouse.js"></script> 点击烟花特效 -->
+	        <script type="text/javascript"><!--点击烟花特效-->
+function clickEffect() {
+let balls = [];
 
-    .deng-box1 {
-      position: fixed;
-      top: -30px;
-      right对: 20px;
-      z-index: 9999;
-      pointer-events: none;
-    }
+let longPressed = false;
 
+let longPress;
 
-    .deng-box1 .deng {
-      position: relative;
-      width: 120px;
-      height: 90px;
-      margin: 50px;
-      background: #d8000f;
-      background: rgba(216, 0, 15, 0.8);
-      border-radius: 50% 50%;
-      -webkit-transform-origin: 50% -100px;
-      -webkit-animation: swing 5s infinite ease-in-out;
-      box-shadow: -5px 5px 30px 4px rgba(252, 144, 61, 1);
-    }
+let multiplier = 0;
 
-    .deng {
-      position: relative;
-      width: 120px;
-      height: 90px;
-      margin: 50px;
-      background: #d8000f;
-      background: rgba(216, 0, 15, 0.8);
-      border-radius: 50% 50%;
-      -webkit-transform-origin: 50% -100px;
-      -webkit-animation: swing 3s infinite ease-in-out;
-      box-shadow: -5px 5px 50px 4px rgba(250, 108, 0, 1);
-    }
+let width, height;
 
-    .deng-a {
-      width: 100px;
-      height: 90px;
-      background: #d8000f;
-      background: rgba(216, 0, 15, 0.1);
-      margin: 12px 8px 8px 10px;
-      border-radius: 50% 50%;
-      border: 2px solid #dc8f03;
-    }
+let origin;
 
-    .deng-b {
-      width: 45px;
-      height: 90px;
-      background: #d8000f;
-      background: rgba(216, 0, 15, 0.1);
-      margin: -2px 8px 8px 26px;
-      border-radius: 50% 50%;
-      border: 2px solid #dc8f03;
-    }
+let normal;
 
-    .xian {
-      position: absolute;
-      top: -20px;
-      left: 60px;
-      width: 2px;
-      height: 20px;
-      background: #dc8f03;
-    }
+let ctx;
 
-    .shui-a {
-      position: relative;
-      width: 5px;
-      height: 20px;
-      margin: -5px 0 0 59px;
-      -webkit-animation: swing 4s infinite ease-in-out;
-      -webkit-transform-origin: 50% -45px;
-      background: #ffa500;
-      border-radius: 0 0 5px 5px;
-    }
+const colours = ["#F73859", "#14FFEC", "#00E0FF", "#FF99FE", "#FAF15D"];
 
-    .shui-b {
-      position: absolute;
-      top: 14px;
-      left: -2px;
-      width: 10px;
-      height: 10px;
-      background: #dc8f03;
-      border-radius: 50%;
-    }
+const canvas = document.createElement("canvas");
 
-    .shui-c {
-      position: absolute;
-      top: 18px;
-      left: -2px;
-      width: 10px;
-      height: 35px;
-      background: #ffa500;
-      border-radius: 0 0 0 5px;
-    }
+document.body.appendChild(canvas);
 
-    .deng:before {
-      position: absolute;
-      top: -7px;
-      left: 29px;
-      height: 12px;
-      width: 60px;
-      content: " ";
-      display: block;
-      z-index: 999;
-      border-radius: 5px 5px 0 0;
-      border: solid 1px #dc8f03;
-      background: #ffa500;
-      background: linear-gradient(to right, #dc8f03, #ffa500, #dc8f03, #ffa500, #dc8f03);
-    }
+canvas.setAttribute("style", "width: 100%; height: 100%; top: 0; left: 0; z-index: 99999; position: fixed; pointer-events: none;");
 
-    .deng:after {
-      position: absolute;
-      bottom: -7px;
-      left: 10px;
-      height: 12px;
-      width: 60px;
-      content: " ";
-      display: block;
-      margin-left: 20px;
-      border-radius: 0 0 5px 5px;
-      border: solid 1px #dc8f03;
-      background: #ffa500;
-      background: linear-gradient(to right, #dc8f03, #ffa500, #dc8f03, #ffa500, #dc8f03);
-    }
+const pointer = document.createElement("span");
 
-    .deng-t {
-      font-family: 华文行楷, Arial, Lucida Grande, Tahoma, sans-serif;
-      font-size: 3.2rem;
-      color: #dc8f03;
-      font-weight: bold;
-      line-height: 85px;
-      text-align: center;
-    }
+pointer.classList.add("pointer");
 
-    .night .deng-t,
-    .night .deng-box,
-    .night .deng-box1 {
-      background: transparent !important;
-    }
+document.body.appendChild(pointer);
 
-    @-moz-keyframes swing {
-      0% {
-        -moz-transform: rotate(-10deg)
-      }
+if (canvas.getContext && window.addEventListener) {
+ctx = canvas.getContext("2d");
 
-      50% {
-        -moz-transform: rotate(10deg)
-      }
+updateSize();
 
-      100% {
-        -moz-transform: rotate(-10deg)
-      }
-    }
+window.addEventListener('resize', updateSize, false);
 
-    @-webkit-keyframes swing {
-      0% {
-        -webkit-transform: rotate(-10deg)
-      }
+loop();
 
-      50% {
-        -webkit-transform: rotate(10deg)
-      }
+window.addEventListener("mousedown", function (e) {
+pushBalls(randBetween(10, 20), e.clientX, e.clientY);
 
-      100% {
-        -webkit-transform: rotate(-10deg)
-      }
+document.body.classList.add("is-pressed");
 
-<style>
-.float-radius{-moz-border-radius:2px;-webkit-border-radius:2px;border-radius:2px;}
-.float-text{color:#1E90FF}
-.float-box{width:50px;font-size:12px;position:fixed;right:0;bottom:0;z-index:9997;}
-.float-ul,.float-ul li{margin:0;padding:0;}
-.float-ul{margin-top:5px;text-align:center;line-height:1.2;list-style:none;background-color:#FFF;box-shadow:0 2px 5px #e6e6e6;}
-.float-ul .iconfont{font-size:18px;line-height:18px;}
-.float-ul li a{display:block;width:100%;padding:10px 0;line-height:18px;}
-.float-ul li a:hover{background:linear-gradient(-125deg,
-#00BFFF 0%,
-#00BFFF 100%);box-shadow:0 8px 10px rgba(32,160,255,.3);color:#FFF;}
-.float-ul li a.qq{-moz-border-top-left-radius:4px;-moz-border-top-right-radius:4px;border-top-left-radius:4px;border-top-right-radius:4px;position:relative;}
-.float-alert-box{width:180px;height:185px;background-color:#FFF;border:1px solid #ececec;position:absolute;right:56px;top:0;z-index:9998;display:none;}
-.float-qq-box{padding:20px 15px;}
-.float-alert-box h6{font-size:20px;color:#f9b015;}
-.float-alert-box p{line-height:24px;}
-.float-ul li .float-qq-box{color:#666;}
-.float-qq-btn{padding:10px;background-color:#f9b015;color:#FFF;}
-</style>
+longPress = setTimeout(function () {
+document.body.classList.add("is-longpress");
+
+longPressed = true;
+
+}, 500);
+
+}, false);
+
+window.addEventListener("mouseup", function (e) {
+clearInterval(longPress);
+
+if (longPressed == true) {
+document.body.classList.remove("is-longpress");
+
+pushBalls(randBetween(50 + Math.ceil(multiplier), 100 + Math.ceil(multiplier)), e.clientX, e.clientY);
+
+longPressed = false;
+
+}
+
+document.body.classList.remove("is-pressed");
+
+}, false);
+
+window.addEventListener("mousemove", function (e) {
+let x = e.clientX;
+
+let y = e.clientY;
+
+pointer.style.top = y + "px";
+
+pointer.style.left = x + "px";
+
+}, false);
+
+} else {
+console.log("canvas or addEventListener is unsupported!");
+
+}
+
+function updateSize() {
+canvas.width = window.innerWidth * 2;
+
+canvas.height = window.innerHeight * 2;
+
+canvas.style.width = window.innerWidth + 'px';
+
+canvas.style.height = window.innerHeight + 'px';
+
+ctx.scale(2, 2);
+
+width = (canvas.width = window.innerWidth);
+
+height = (canvas.height = window.innerHeight);
+
+origin = {x: width / 2, y: height / 2};
+
+normal = {x: width / 2, y: height / 2};
+
+}
+
+class Ball {
+constructor(x = origin.x, y = origin.y) {
+this.x = x;
+
+this.y = y;
+
+this.angle = Math.PI * 2 * Math.random();
+
+if (longPressed == true) {
+this.multiplier = randBetween(14 + multiplier, 15 + multiplier);
+
+} else {
+this.multiplier = randBetween(6, 12);
+
+}
+
+this.vx = (this.multiplier + Math.random() * 0.5) * Math.cos(this.angle);
+
+this.vy = (this.multiplier + Math.random() * 0.5) * Math.sin(this.angle);
+
+this.r = randBetween(8, 12) + 3 * Math.random();
+
+this.color = colours[Math.floor(Math.random() * colours.length)];
+
+}
+
+update() {
+this.x += this.vx - normal.x;
+
+this.y += this.vy - normal.y;
+
+normal.x = -2 / window.innerWidth * Math.sin(this.angle);
+
+normal.y = -2 / window.innerHeight * Math.cos(this.angle);
+
+this.r -= 0.3;
+
+this.vx *= 0.9;
+
+this.vy *= 0.9;
+
+}
+
+}
+
+function pushBalls(count = 1, x = origin.x, y = origin.y) {
+for (let i = 0; i < count; i++) {
+balls.push(new Ball(x, y));
+
+}
+
+}
+
+function randBetween(min, max) {
+return Math.floor(Math.random() * max) + min;
+
+}
+
+function loop() {
+ctx.fillStyle = "rgba(255, 255, 255, 0)";
+
+ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+for (let i = 0; i < balls.length; i++) {
+let b = balls[i];
+
+if (b.r < 0) continue;
+
+ctx.fillStyle = b.color;
+
+ctx.beginPath();
+
+ctx.arc(b.x, b.y, b.r, 0, Math.PI * 2, false);
+
+ctx.fill();
+
+b.update();
+
+}
+
+if (longPressed == true) {
+multiplier += 0.2;
+
+} else if (!longPressed && multiplier >= 0) {
+multiplier -= 0.4;
+
+}
+
+removeBall();
+
+requestAnimationFrame(loop);
+
+}
+
+function removeBall() {
+for (let i = 0; i < balls.length; i++) {
+let b = balls[i];
+
+if (b.x + b.r < 0 || b.x - b.r > width || b.y + b.r < 0 || b.y - b.r > height || b.r < 0) {
+balls.splice(i, 1);
+
+}
+
+}
+
+}
+
+}
+
+clickEffect();
+</script>
 	</body>
 </html>
