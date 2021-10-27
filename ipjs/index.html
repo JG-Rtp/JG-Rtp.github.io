@@ -57,7 +57,7 @@
 	</font> 
           <input type="text" size="3" value="5" name="ip_4"><font size="2"> /</font><input  type="text" size="2" value="24" name="bits"><font size="2"> </font> <input onclick="calNBFL(this.form)" type="button" value="计算"><font size="2">
 	</font> <input onclick="resetform4(this.form)" type="button" value=" 清除重算 "><font size="2"> 
-          <br><b>结果结果:</b>
+          <br><b>计算结果:</b>
 	</font>
           <table style="border-radius:8px; padding: 3px;border-color:#7986cb;" summary="result"  border="2px" cellspacing="3" cellpadding="0" align="center">
           <tbody>
@@ -113,26 +113,45 @@
                 <b>
                 <font size="2">IP地址和网络转换器</font><br>
                 <font size="2">子网掩码转换器（对位点分十进制格式）</font></b>
-                <form><input size="3" value="255" name="snm_1"><font size="2"> </font> <input size="3" value="255" name="snm_2"><font size="2"> </font> <input size="3" value="255" name="snm_3"><font size="2">
-	</font> <input size="3" value="0" name="snm_4"><font size="2"> 结果: /</font><input readonly="" size="7" name="result"><font size="2">
-	</font> 
-                 <input onclick="calcNWbits(this.form)" type="button" value=" 计算 "><font size="2">
-	</font> <input onclick="resetform1(this.form)" type="button" value=" 清除重算 "><font size="2">
-	</font> </form>
-                <div style="height:40px;"></div>
+                <form>
+			<input type="text" size="3" value="255" name="snm_1"><font size="2"> </font> 
+			<input type="text" size="3" value="255" name="snm_2"><font size="2"> </font> 
+			<input type="text" size="3" value="255" name="snm_3"><font size="2"> </font> 
+			<input type="text" size="3" value="0" name="snm_4"><font size="2"> 结果: /</font>
+			<input type="text" readonly="" size="7" name="result"><font size="2"> </font> 
+                        <input onclick="calcNWbits(this.form)" type="button" value=" 计算 "><font size="2"> </font> 
+			<input onclick="resetform1(this.form)" type="button" value=" 清除重算 "><font size="2"></font> 
+		</form>
+		  <div style="height:40px;"></div>
 
-                <b>
+		  <b>
 
-                <font size="2">子网掩码转换器（位点分十进制格式）</font></b>
-                <form><font size="2">/</font><input size="4" value="24" name="bits"><font size="2">
-	</font> <input onclick="calcNWmaskForm2(this.form)" type="button" value=" 计算 "><font size="2">
-	</font> <input onclick="resetform2(this.form)" type="button" value=" 清除重算 "><font size="2"> 
-	
-	<br>结果: <br>Dec 十进制: 
-	</font> <input readonly="" size="3" name="snm_1"><font size="2"> </font> <input readonly="" size="3" name="snm_2"><font size="2"> </font> <input readonly="" size="3" name="snm_3"><font size="2">
-	</font> <input readonly="" size="3" name="snm_4"><font size="2"> <br>Hex十六进制: </font> <input readonly="" size="2" name="hex_1"><font size="2">
-	</font> <input readonly="" size="2" name="hex_2"><font size="2"> </font> <input readonly="" size="2" name="hex_3"><font size="2">
-	</font> <input readonly="" size="2" name="hex_4"><font size="2"> </font> </form>
+
+			  <font size="2">子网掩码转换器（位点分十进制格式）</font></b>
+		  <form>
+			  <font size="2">/</font>
+			  <input type="text" size="4" value="24" name="bits">
+			  <font size="2"></font> 
+			  <input onclick="calcNWmaskForm2(this.form)" type="button" value=" 计算 ">
+			  <font size="2"></font> <input onclick="resetform2(this.form)" type="button" value=" 清除重算 ">
+			  <font size="2"><br>结果: <br>Dec 十进制: </font> 
+			  <input type="text" readonly="" size="3" name="snm_1">
+			  <font size="2"> </font> 
+			  <input type="text" readonly="" size="3" name="snm_2">
+			  <font size="2"> </font> 
+			  <input type="text" readonly="" size="3" name="snm_3">
+			  <font size="2"></font> 
+			  <input type="text" readonly="" size="3" name="snm_4">
+			  <font size="2"> <br>Hex十六进制: </font> 
+			  <input type="text" readonly="" size="2" name="hex_1">
+			  <font size="2"></font> 
+			  <input type="text" readonly="" size="2" name="hex_2">
+			  <font size="2"> </font> 
+			  <input type="text" readonly="" size="2" name="hex_3">
+			  <font size="2"></font> 
+			  <input type="text" readonly="" size="2" name="hex_4">
+			  <font size="2"> </font> 
+		  </form>
                      <div style="height:40px;"></div>
 
                        <b>
