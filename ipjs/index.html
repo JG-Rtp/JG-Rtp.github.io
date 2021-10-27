@@ -34,7 +34,7 @@
 			td{
 				border-radius:5px;
 			}
-			input{
+			input[type=text]{
 				-webkit-transition-duration: 0.4s;
                                 transition-duration: 0.4s;
                                 padding: 3px 8px;
@@ -43,7 +43,7 @@
                                 border-radius:10px;
                                 margin:2px;     
 			}
-			input:focus{
+			input[type=text]:focus{
 				outline:none;
 				border:1px solid #7986cb;
 				box-shadow: 0px 0px 5px 0px #7986cb;
@@ -52,7 +52,7 @@
 <div style="border : 1px solid #ADD8E6 ; border-radius : 20px ; margin :15px ;">
       <script type="text/javascript" src="js/wehfg.js"></script>
           <div style="width:78% ; margin:15px auto;"><h1 align="center"><font size="5">网络和IP地址计算器</font></h1>
-          <font size="2">显示网络，广播，第一次和最后一个给定的网络地址:</font><form><font size="2">IP/掩码位: </font> <input size="3" value="10" name="ip_1"><font size="2">
+          <font size="2">显示网络，广播，第一次和最后一个给定的网络地址:</font><form><font size="2">IP/掩码位: </font> <input type="text" size="3" value="10" name="ip_1"><font size="2">
 	</font> <input size="3" value="0" name="ip_2"><font size="2"> </font> <input size="3" value="0" name="ip_3"><font size="2">
 	</font> 
           <input size="3" value="5" name="ip_4"><font size="2"> /</font><input  size="2" value="24" name="bits"><font size="2"> </font> <input onclick="calNBFL(this.form)" type="button" value="计算"><font size="2">
