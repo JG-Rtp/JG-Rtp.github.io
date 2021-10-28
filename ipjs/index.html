@@ -43,7 +43,7 @@
                                 border-radius:10px;
                                 margin:2px;    
 			}
-			input[type=text]:focus{
+			input[type=text]:active {
 				transition:border linear .2s,box-shadow linear .5s;
 				-moz-transition:border linear .2s,-moz-box-shadow linear .5s;
 				-webkit-transition:border linear .2s,-webkit-box-shadow linear .5s;
@@ -57,7 +57,8 @@
 			<script type="text/javascript" src="js/wehfg.js"></script>
 			<div style="width:78% ; margin:15px auto;">
 				<h1 align="center"><font size="5">网络和IP地址计算器</font></h1>
-				<font size="2"><br><b>显示网络，广播，第一次和最后一个给定的网络地址:</b></font>
+				<font size="2">显示网络，广播，第一次和最后一个给定的网络地址:</font>
+				<br>
 				<form>
 					<font size="2">IP/掩码位: </font> 
 					<input type="text" size="3" value="10" name="ip_1">
