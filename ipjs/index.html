@@ -44,10 +44,13 @@
                                 margin:2px;    
 			}
 			input[type=text]:focus{
-				pointer-events: none;
-				box-shadow: 0px 0px 0px 2px #eca29b;
-				-webkit-animation: anim-shadow 0.3s forwards;
-	                        animation: anim-shadow 0.3s forwards;
+				transition:border linear .2s,box-shadow linear .5s;
+				-moz-transition:border linear .2s,-moz-box-shadow linear .5s;
+				-webkit-transition:border linear .2s,-webkit-box-shadow linear .5s;
+				outline:none;border-color:rgba(93,149,242,.75);
+				box-shadow:0 0 8px rgba(93,149,242,.105);
+				-moz-box-shadow:0 0 8px rgba(93,149,242,.5);
+				-webkit-box-shadow:0 0 8px rgba(93,149,242,3);
 			}
 		</style>
 		<div style="border : 1px solid #ADD8E6 ; border-radius : 20px ; margin :15px ;">
