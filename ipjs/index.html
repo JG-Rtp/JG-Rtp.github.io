@@ -44,13 +44,22 @@
                                 margin:2px;    
 			}
 			input[type=text]:focus {
-				transition:border linear .2s,box-shadow linear .5s,border linear .2s;
-				-moz-transition:border linear .2s,-moz-box-shadow linear .5s,border linear .2s;
-				-webkit-transition:border linear .2s,-webkit-box-shadow linear .5s,border linear .2s;
+				transition:border linear .2s,box-shadow linear .5s,;
+				-moz-transition:border linear .2s,-moz-box-shadow linear .5s,;
+				-webkit-transition:border linear .2s,-webkit-box-shadow linear .5s,;
 				outline:none;border-color:rgba(121,134,203,.75);
 				box-shadow:0 0 8px rgba(121,134,203,.105);
 				-moz-box-shadow:0 0 8px rgba(121,134,203,.5);
 				-webkit-box-shadow:0 0 8px rgba(121,134,203,3);
+			}
+			input[type=text]::after{
+				transition:border linear .2s,box-shadow linear .5s,;
+				-moz-transition:border linear .2s,-moz-box-shadow linear .5s,;
+				-webkit-transition:border linear .2s,-webkit-box-shadow linear .5s,;
+				outline:none;border-color:rgba(121,134,203,.75);
+				box-shadow:0 0 0px rgba(121,134,203,.105);
+				-moz-box-shadow:0 0 0px rgba(121,134,203,.5);
+				-webkit-box-shadow:0 0 0px rgba(121,134,203,3);
 			}
 		</style>
 		<div style="border : 1px solid #ADD8E6 ; border-radius : 20px ; margin :15px ;">
