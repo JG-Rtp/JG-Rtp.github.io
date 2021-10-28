@@ -55,6 +55,56 @@
 				-moz-box-shadow:0 0 8px rgba(121,134,203,.5);
 				-webkit-box-shadow:0 0 8px rgba(121,134,203,3);
 			}
+			input[type=button] {
+				position: relative;
+            line-height: 100px;
+            /* 设置字体 */
+            text-align: center;
+            text-decoration: none;
+            text-transform: uppercase;
+            font-size: 24px;
+            color: #fff;
+            /* 圆角属性 */
+            border-radius: 50px;
+            /* 背景颜色 */
+            background-image: linear-gradient(to right, #03a9f4, #f441a5, #ffeb3b, #09a8f4);
+            background-size: 400%;
+            
+            z-index: 1;
+         }
+         
+         /* 下面是 发光效果 */
+         input[type=button]::before{
+            content: '';
+            position: absolute;
+            top: -5px;
+            left: -5px;
+            bottom: -5px;
+            right: -5px;
+            border-radius: 50px;
+            
+            border-image: linear-gradient(to right, #03a9f4, #f441a5, #ffeb3d, #09a8f4);
+            background-size: 400%;
+            /* 元素的位置 -底层或+顶层 */
+            z-index: -1;
+            filter: blur(20px);
+         }
+         
+         input[type=button]:hover::before{
+             animation: sun 8s infinite;
+         }
+         
+         input[type=button]:hover{
+            /* 动画 名称 时间 infinite是无限播放 */
+            animation: sun 8s infinite;
+         }
+         
+         @keyframes sun{
+            100%{
+               /* 背景位置 */
+               background-position: -400% 0;
+            }
+         }
 		</style>
 		<div style="border : 1px solid #ADD8E6 ; border-radius : 20px ; margin :15px ;">
 			<script type="text/javascript" src="js/wehfg.js"></script>
