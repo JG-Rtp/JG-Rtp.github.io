@@ -65,7 +65,7 @@
 				border-radius: 50px;
 				z-index: 1;
 			}
-			input[type=button]::before{
+			button::before{
 				content: "";
                                 position: absolute; 
                                 left: -5px;
@@ -78,10 +78,10 @@
                                 filter: blur(20px);
                                 z-index: -1; 
 			} 
-			input[type=button]:hover::before{
+			button:hover::before{
 				animation: sun 8s infinite;
 			}
-			input[type=button]:hover{
+			button:hover{
 				animation: sun 8s infinite;
 			}
 			@keyframes sun{
