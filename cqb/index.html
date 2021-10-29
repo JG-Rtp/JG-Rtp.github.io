@@ -35,7 +35,7 @@
 								<input class="form-control" id="input" placeholder="请输入QQ">
 							</div>
 							<div class="list-group-item">
-								<a onclick="qbang('cha')" class="btn btn-block btn-primary" style="background: linear-gradient(to right,#b221ff,#14b7ff);">查找</a>
+								<a onclick="qbang('cha')">查找</a>
 								<br>
 								<div class="list-group-item list-group-item-warning" style="font-weight: bold;display: none;" id="jiexi_data">
 									<div class="input-group">
@@ -67,6 +67,59 @@
 							<div id="result"></div>
 					</div>
 				</div>
+			<style>
+				a{   
+border:none;
+text-decoration: none;  
+    position: absolute;
+
+    /* 设置字体大小 */
+padding:3px 8px;
+    background: linear-gradient(90deg,#03a9f4,#f441a5,#ffeb3b,#03a9f4);
+    background-size: 400%;
+    text-align: center;
+    color: #fff;
+    /* 字母变大写 */
+    text-transform: uppercase;
+    /* 设置成胶囊状 */
+    border-radius: 50px;
+    z-index: 1;
+
+border:none
+				text-align: center;
+				color: #fff;
+		                border-radius: 40px;
+				background-image: linear-gradient(to right, #03a9f4, #f441a5, #ffeb3b, #09a8f4);
+				background-size: 400%;
+				z-index: 1;
+}
+/* 设置发光 */
+a::before{
+     content: "";
+    position: absolute;
+    left: -2px;
+    right: -2px;
+    top: -2px;
+    bottom: -2px;
+    background: linear-gradient(90deg,#03a9f4,#f441a5,#ffeb3b,#03a9f4);
+    background-size: 400%;
+    border-radius: 50px;
+    filter: blur(8px);
+    z-index: -1;
+}
+a:hover::before{
+    animation: sun 8s infinite;
+}
+a:hover{
+    animation: sun 8s infinite;
+}
+/* 设置流光 */
+@keyframes sun{
+    100%{
+        background-position: -400% 0;
+    }
+}
+			</style>
 			<script>
 				function qbang($mod) {
 					var qq = $('#input').val();
