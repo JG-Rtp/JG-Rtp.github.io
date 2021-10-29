@@ -56,30 +56,28 @@
 				-webkit-box-shadow:0 0 8px rgba(121,134,203,3);
 			}
 			input[type=button] {
-				border:none
-				text-align: center;
-				color: #fff;
-		                border-radius: 40px;
-				background-image: linear-gradient(to right, #03a9f4, #f441a5, #ffeb3b, #09a8f4);
-				background-size: 400%;
-				z-index: 1;
+				position: absolute;
+                                transform: translate(-50%,-50%);
+                                background: linear-gradient(90deg,#03a9f4,#f441a5,#ffeb3b,#03a9f4);
+                                background-size: 400%;
+                                text-align: center;
+                                color: #fff;
+                                border-radius: 40px;
+                                z-index: 1;
 			}
 			input[type=button]::before{
-
-				top: -2px;
-				left: -2px;
-				bottom: -2px;
-				right: -2px;
-				border-radius: 40px;
-            
-            border-image: linear-gradient(to right, #03a9f4, #f441a5, #ffeb3d, #09a8f4);
-            background-size: 400%;
-            /* 元素的位置 -底层或+顶层 */
-            z-index: -1;
-            filter: blur(20px);
-            }
+				position: absolute;
+				left: -5px;
+				right: -5px;
+				top: -5px;
+				bottom: -5px;
+				background: linear-gradient(90deg,#03a9f4,#f441a5,#ffeb3b,#03a9f4);
+				background-size: 400%;
+				filter: blur(20px);
+				z-index: -1;
+			}
          
-         input[type=button]:hover::before{
+			input[type=button]:hover::before{
              animation: sun 8s infinite;
          }
          
