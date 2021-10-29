@@ -55,7 +55,7 @@
 				-moz-box-shadow:0 0 8px rgba(121,134,203,.5);
 				-webkit-box-shadow:0 0 8px rgba(121,134,203,3);
 			}
-			button {
+			input[type=button] {
 				border:none;
 				position: absolute;
 				padding:3px 8px;
@@ -66,7 +66,7 @@
 				border-radius: 50px;
 				z-index: 1;
 			}
-			button::before{
+			input[type=button]::before{
 				content: "";
                                 position: absolute; 
                                 left: -5px;
@@ -79,10 +79,10 @@
                                 filter: blur(3px);
                                 z-index: -1; 
 			} 
-			button:hover::before{
+			input[type=button]:hover::before{
 				animation: sun 8s infinite;
 			}
-			button:hover{
+			input[type=button]:hover{
 				animation: sun 8s infinite;
 			}
 			@keyframes sun{
