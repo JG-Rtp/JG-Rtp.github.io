@@ -71,45 +71,54 @@
 				</div>
 			<style>
 				#chazhao{
-					margin: 10px 10px;
-					border:none;
-					text-decoration: none;  
-                                        position: absolute;
-                                        background: linear-gradient(90deg,#03a9f4,#f441a5,#ffeb3b,#03a9f4);
-                                        background-size: 400%;
-					text-align: center;
-					color: #fff;
-					text-transform: uppercase;
-					border-radius: 50px;
-					z-index: 1;
+					 position: relative;
+        display: inline-block;
+        width: 220px;
+        height: 80px;
+        color: rgb(255, 255, 255);
+        line-height: 80px;
+        font-size: 35px;
+        font-family: sans-serif;
+        text-decoration: none;
+        text-transform: uppercase;
+        text-align: center;
+        border-radius: 30px;
+        background: linear-gradient(90deg,rgb(39, 122, 218),rgb(74, 230, 121),rgb(201, 214, 13),rgb(226, 20, 233),rgb(16, 172, 219));
+        background-size: 400%;
+        z-index: 1;
+        text-shadow: 0 0 5px white,
+                     0 0 5px white;
 				}
 				#chazhao::before{
-     content: "";
-    position: absolute;
-    left: -2px;
-    right: -2px;
-    top: -2px;
-    bottom: -2px;
-    background: linear-gradient(90deg,#03a9f4,#f441a5,#ffeb3b,#03a9f4);
-    background-size: 400%;
-    border-radius: 50px;
-    filter: blur(8px);
-    z-index: -1;
+     content: '';
+        position: absolute;
+        top: -10px;
+        left: -10px;
+        width: 240px;
+        height: 100px;
+        background: linear-gradient(90deg,rgb(39, 122, 218),rgb(74, 230, 121),rgb(243, 169, 10),rgb(226, 20, 233),rgb(16, 172, 219));
+        background-size: 400%;
+        opacity: 0;
+        z-index: -1;
+        border-radius: 45px;
+        transition: 0.6s;
 }
 #chazhao:hover::before{
-    animation: sun 8s infinite;
+   filter: blur(15px);
+        opacity: 1;
+        animation: move 8s linear alternate infinite;
 }
 #chazhao:hover{
-    animation: sun 8s infinite;
-	color: #fff;
-	text-decoration: none;  
-}
-/* 设置流光 */
-@keyframes sun{
-    100%{
-        background-position: -400% 0;
+   animation: move 5s linear alternate infinite;
     }
-}
+    @keyframes move{
+        0%{
+           background-position: 0%;
+        }
+        100%{
+            background-position: 100%;
+        }
+    }
 			</style>
 			<script>
 				function qbang($mod) {
