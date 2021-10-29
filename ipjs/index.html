@@ -57,14 +57,11 @@
 			}
 			input[type=button] {
                                 position: absolute;
-				left: 50%;
-				top: 50%;
 				transform: translate(-50%,-50%);
 				background: linear-gradient(90deg,#03a9f4,#f441a5,#ffeb3b,#03a9f4);
 				background-size: 400%;
 				text-align: center;
 				color: #fff;
-				text-transform: uppercase;
 				border-radius: 50px;
 				z-index: 1;
 					
@@ -83,17 +80,14 @@
 			}
          
 			input[type=button]:hover::before{
-             animation: sun 8s infinite;
-         }
-         
-         input[type=button]:hover{
-            /* 动画 名称 时间 infinite是无限播放 */
-            animation: sun 8s infinite;
-         }
+				animation: sun 8s infinite;
+			}
+			input[type=button]:hover{
+				animation: sun 8s infinite;
+			}
          
          @keyframes sun{
             100%{
-               /* 背景位置 */
                background-position: -400% 0;
             }
          }
