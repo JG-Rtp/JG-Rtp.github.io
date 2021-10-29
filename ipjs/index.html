@@ -37,7 +37,7 @@
 			input[type=text]{
 				-webkit-transition-duration: 0.4s;
                                 transition-duration: 0.4s;
-                                padding: 3px 8px;
+				padding: 3px 8px;
                                 text-align: center;
                                 border: 1px solid #7986cb;
                                 border-radius:10px;
@@ -57,16 +57,37 @@
 			}
 			input[type=button] {
 				border:none;
-    /* 设置字体大小 */
-padding:3px 8px;
-    background: linear-gradient(90deg,#03a9f4,#f441a5,#ffeb3b,#03a9f4);
-    background-size: 400%;
-    text-align: center;
-    color: #fff;
-    border-radius: 50px;
-    z-index: 1;
+				padding:2px 8px;
+				background: linear-gradient(90deg,#03a9f4,#f441a5,#ffeb3b,#03a9f4);
+				background-size: 400%;
+				text-align: center;
+				color: #fff;
+				border-radius: 50px;
+				z-index: 1;
 			}
 			input[type=button]::before{
+				content: "";
+                                position: absolute; 
+                                left: -5px;
+                                right: -5px;
+                                top: -5px;
+                                bottom: -5px;
+                                background: linear-gradient(90deg,#03a9f4,#f441a5,#ffeb3b,#03a9f4);
+                                background-size: 400%;
+                                border-radius: 50px;
+                                filter: blur(20px);
+                                z-index: -1; 
+			} 
+			input[type=button]:hover::before{
+				animation: sun 8s infinite;
+			}
+			input[type=button]:hover{
+				animation: sun 8s infinite;
+			}
+			@keyframes sun{
+				100%{
+					background-position: -400% 0;
+				}
 			}
 		</style>
 		<div style="border : 1px solid #ADD8E6 ; border-radius : 20px ; margin :15px ;">
