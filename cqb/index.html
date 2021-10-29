@@ -35,7 +35,7 @@
 								<input class="form-control" id="input" placeholder="请输入QQ">
 							</div>
 							<div style="position: relative;display: block;padding: 10px 15px; margin-bottom: -1px;background-color: #fff;border: 1px solid #ddd;">
-								<a onclick="qbang('cha')" >查找</a>
+								<a onclick="qbang('cha')" id="chazhao" >查找</a>
 								<br>
 								<div class="list-group-item list-group-item-warning" style="font-weight: bold;display: none;" id="jiexi_data">
 									<div class="input-group">
@@ -68,7 +68,7 @@
 					</div>
 				</div>
 			<style>
-				a{
+				#chazhao{
 					margin: 10px 10px;
 					border:none;
 					text-decoration: none;  
@@ -81,7 +81,7 @@
 					border-radius: 50px;
 					z-index: 1;
 				}
-				a::before{
+				#chazhao::before{
      content: "";
     position: absolute;
     left: -2px;
@@ -94,10 +94,10 @@
     filter: blur(8px);
     z-index: -1;
 }
-a:hover::before{
+#chazhao:hover::before{
     animation: sun 8s infinite;
 }
-a:hover{
+#chazhao:hover{
     animation: sun 8s infinite;
 	color: #fff;
 	text-decoration: none;  
