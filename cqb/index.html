@@ -11,27 +11,6 @@
     <script src="js/layer.js"></script>
     <link rel="stylesheet" href="css/layer.css?v=3.1.1" id="layuicss-layer">
     <script>
-        document.onkeydown = function(){
-            if (event.ctrlKey && window.event.keyCode==85){
-                return false;
-            }
-            if (window.event && window.event.keyCode == 123) {
-                event.keyCode = 0;
-                event.returnValue = false;
-            }
-            if (event.ctrlKey && window.event.keyCode==83){
-                return false;
-            }
-            if (window.event && window.event.keyCode == 116) {
-                event.keyCode = 0;
-                event.returnValue = false;
-            }
-        }
-        document.body.oncontextmenu = function() {
-            self.event.returnValue=false
-        };
-    </script>
-    <script>
         function gg(){
             layer.alert('欢迎使用敬故Q绑查询', {
                 icon: 1,
