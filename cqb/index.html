@@ -1,360 +1,137 @@
 <!DOCTYPE html>
 <html lang="zh-cn"><head>
-    <meta charset="utf-8">
-    <link href="https://jg-rtp.github.io/img/jg.ico" rel="shortcut icon">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>敬故Q绑在线查询</title>
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-    <script src="js/app.js"></script>
-    <script src="js/jquery3.7.js"></script>
-    <script src="js/jquery.min.js"></script>
-    <script src="js/layer.js"></script>
-    <link rel="stylesheet" href="css/layer.css?v=3.1.1" id="layuicss-layer">
-    <script>
-        function gg(){
-            layer.alert('欢迎使用敬故Q绑查询', {
-                icon: 1,
-                title: '公告',
-                skin: 'layer-ext-moon'
-            })
-        }
-    </script>
-    </head>
-    <body background="https://api.vvhan.com/api/acgimg">
-        <div class="container">
-            <div class="col-xs-12 col-sm-10 col-md-8 col-lg-6 center-block" style="float: none;">
-                <br>
-                <div class="panel panel-primary">
-                    <div class="panel-heading" style="background: linear-gradient(to right,#b221ff,#14b7ff,#8ae68a);">
-                        <h3 class="panel-title">敬故Q绑大全套</h3>
-                    </div>
-                    <div class="panel-body" style="text-align: center;">
-                        <div class="list-group">
-                            <div class="list-group-item list-group-item-warning" style="font-weight: bold;">
-                                <span>输入QQ号码即可查询密保手机，归属地，微博ID，LOL信息跟旧密码</span>
-                            </div>
-                            <div class="list-group-item list-group-item-warning" style="font-weight: bold;">
-                                <span>[旧密码为md5加密]</span>
-                            </div>
-                            <div class="list-group-item list-group-item-info" style="font-weight: bold;">
-                                <input class="form-control" id="input" placeholder="请输入QQ">
-                            </div>
-                            <div class="list-group-item">
-                                <a onclick="qbang('cha')" class="btn btn-block btn-primary" style="background: linear-gradient(to right,#b221ff,#14b7ff);">查找</a>
-                            </div>
-                            <div class="list-group-item list-group-item-warning" style="font-weight: bold;display: none;" id="jiexi_data">
-                                <div class="input-group">
-                                    <span class="input-group-addon ">密保手机号码</span>
-                                    <input type="text" class="form-control" placeholder="" id="mobile" readonly>
-                                </div>
-                                <div class="input-group">
-                                    <span class="input-group-addon">号码归属地</span>
-                                    <input type="text" class="form-control" placeholder="" id="mobileduqu" readonly>
-                                </div>
-                                <div class="input-group">
-                                    <span class="input-group-addon">LOL信息</span>
-                                    <input type="text" class="form-control" placeholder="" id="lol" readonly>
-                                </div>
-                                <div class="input-group">
-                                    <span class="input-group-addon">QQ老密</span>
-                                    <input type="text" class="form-control" placeholder="" id="lm" readonly>
-                                </div>
-                                <div class="input-group">
-                                    <span class="input-group-addon">微博UID</span>
-                                    <input type="text" class="form-control" placeholder="" id="wbuid" readonly>
-                               </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="panel panel-default text-center">
-                    <div class="panel-body">
-                        Copyright © 2019-2021 敬故 All Right Reserved.
-                        <br>
-                        <div id="result"></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <script>
-            function qbang($mod) {
-                var qq = $('#input').val();
-                if (qq == '') {
-                    var alert_1 = layer.msg('请输入QQ', { icon: 5 });
-                } 
-                else {
-                    if($mod=='cha'){
-                        dialog('<div style="text-align:center">
-                               <br>
-                               <b style="color:#ff4425">
-                               仅供查询自己的QQ号码
-                               <br>
-                               不是自己的请立即退出本页面
-                               <br>
-                               否则，发生的一切后果本人不负责
-                               <br>
-                               <br>
-                               确认查询？？
-            </b>
-                               <br>
-                               <br>
-                               <a onclick='+'queren("cha")'+' class="btn btn-block btn-primary" style="background: linear-gradient(to right,#b221ff,#14b7ff);">
-                            确认
-            </a>
-                        <br>
-            </div>', 1);
-                    }
-                }
-            }
-            function queren(mod) {
-                console.log(mod);
-                layer.close(layer.index);
-                var qq = $('#input').val();
-                if(mod=='cha'){
-                    $url = 'https://cxx.yun7.me/qqcx?qq='+qq;
-                }
-                var alert_1 = layer.load(0, { shade: false });
-                $.getJSON($url, function (json) {
-                    layer.close(alert_1);
-                    if (json['status'] == '200') {
-                        layer.msg('查询成功', { icon: 1 });
-                        $('#mobile').val(json['phone']);
-                        $('#mobileduqu').val(json['phonediqu']);
-                        $('#lol').val(json['lol']);
-                        $('#wbuid').val(json['wb']);
-                        $('#lm').val(json['qqlm']);
-                        $('#jiexi_data').css("display", "block");
-                    }
-                    else {
-                        layer.msg(json['message']);
-                        $('#jiexi_data').css("display", "none");
-                    }
-                });
-            }
-            function dialog(code, exit) {
-                layer.open({
-                    type: 1,
-                    skin: 'layui-layer-lan', //加上边框
-                    area: ['350px', ''], //宽高
-                    closeBtn: exit,
-                    shade: 0.8,
-                    title: '提示',
-                    btnAlign: 'c',
-                    content: code,
-                });
-            }
-            gg()
-        </script>
-        <script>
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-            gtag('config', 'G-RT13NSRESZ');
-        </script>
-        <div class="deng-box">
-    <div class="deng">
-      <div class="xian"></div>
-      <div class="deng-a">
-        <div class="deng-b">
-          <div class="deng-t">梦</div>
-        </div>
-      </div>
-      <div class="shui shui-a">
-        <div class="shui-c"></div>
-        <div class="shui-b"></div>
-      </div>
-    </div>
-  </div>
-  <div class="deng-box1">
-    <div class="deng">
-      <div class="xian"></div>
-      <div class="deng-a">
-        <div class="deng-b">
-          <div class="deng-t">孤</div>
-        </div>
-      </div>
-      <div class="shui shui-a">
-        <div class="shui-c"></div>
-        <div class="shui-b"></div>
-      </div>
-    </div>
-  </div>
-  <style>
-    .deng-box {
-      position: fixed;
-      top: -30px;
-      right: -20px;
-      z-index: 9999;
-      pointer-events: none;
-    }
+<meta charset="utf-8">
+<link rel="shortcut icon" href="https:/jg-rtp.github.io/img/jg.ico" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Q绑大全套在线查询</title>
+<link href="css/bootstrap.min.css" rel="stylesheet">
+<script src="js/app.js"></script>
+<script src="js/jquery3.7.js"></script>
+<script src="js/jquery.min.js"></script>
+<script src="js/layer.js"></script>
+<link rel="stylesheet" href="css/layer.css?v=3.1.1" id="layuicss-layer">
+<script>
+    function gg(){
+    layer.alert('欢迎使用Q绑查询', {
+  icon: 1,
+  title: '公告',
+  skin: 'layer-ext-moon'
+})
+}
+</script>
+</head>
+<body background="https://api.vvhan.com/api/acgimg">
+<div class="container">
+<div class="col-xs-12 col-sm-10 col-md-8 col-lg-6 center-block" style="float: none;">
+<br>
+<div class="panel panel-primary">
+<div class="panel-heading" style="background: linear-gradient(to right,#b221ff,#14b7ff,#8ae68a);">
+<h3 class="panel-title">敬故Q绑大全套</h3>
+</div>
+<div class="panel-body" style="text-align: center;">
+<div class="list-group">
+<div class="list-group-item list-group-item-warning" style="font-weight: bold;">
+<span>输入QQ号码即可查询密保手机，归属地，微博ID，LOL信息跟旧密码</span>
+</div>
+<div class="list-group-item list-group-item-warning" style="font-weight: bold;">
+<span>[旧密码为md5加密]</span>
+</div>
+<div class="list-group-item list-group-item-info" style="font-weight: bold;">
+<input class="form-control" id="input" placeholder="请输入QQ">
+</div>
+<div class="list-group-item">
+<a onclick="qbang('cha')" class="btn btn-block btn-primary" style="background: linear-gradient(to right,#b221ff,#14b7ff);">查找</a>
 
-    .deng-box1 {
-      position: fixed;
-      top: -30px;
-      right对: 20px;
-      z-index: 9999;
-      pointer-events: none;
-    }
+</div>
+<div class="list-group-item list-group-item-warning" style="font-weight: bold;display: none;" id="jiexi_data">
+<div class="input-group">
+<span class="input-group-addon ">密保手机号码</span>
+<input type="text" class="form-control" placeholder="" id="mobile" readonly>
+</div>
+<div class="input-group">
+<span class="input-group-addon">号码归属地</span>
+<input type="text" class="form-control" placeholder="" id="mobileduqu" readonly>
+</div>
+<div class="input-group">
+<span class="input-group-addon">LOL信息</span>
+<input type="text" class="form-control" placeholder="" id="lol" readonly>
+</div>
+<div class="input-group">
+<span class="input-group-addon">QQ老密</span>
+<input type="text" class="form-control" placeholder="" id="lm" readonly>
+</div>
+<div class="input-group">
+<span class="input-group-addon">微博UID</span>
+<input type="text" class="form-control" placeholder="" id="wbuid" readonly>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="panel panel-default text-center">
+<div class="panel-body">
+Copyright © 2019-2021 敬故 All Right Reserved.
+<br>
+<div id="result"></div>
+</div></div></div></div>
+<script>
+function qbang($mod) {
+var qq = $('#input').val();
+if (qq == '') {
+var alert_1 = layer.msg('请输入QQ', { icon: 5 });
+} else {
 
+if($mod=='cha'){
+dialog('<div style="text-align:center"><br><b style="color:#ff4425">仅供查询自己的QQ号码<br>不是自己的请立即退出本页面<br>否则，发生的一切后果本人不负责<br><br>确认查询？？</b><br><br><a onclick='+'queren("cha")'+' class="btn btn-block btn-primary" style="background: linear-gradient(to right,#b221ff,#14b7ff);">确认</a><br></div>', 1);
+}
+}
+}
+function queren(mod) {
+console.log(mod);
+layer.close(layer.index);
+var qq = $('#input').val();
+if(mod=='cha'){
+$url = 'https://cxx.yun7.me/qqcx?qq='+qq;
+}
 
-    .deng-box1 .deng {
-      position: relative;
-      width: 120px;
-      height: 90px;
-      margin: 50px;
-      background: #d8000f;
-      background: rgba(216, 0, 15, 0.8);
-      border-radius: 50% 50%;
-      -webkit-transform-origin: 50% -100px;
-      -webkit-animation: swing 5s infinite ease-in-out;
-      box-shadow: -5px 5px 30px 4px rgba(252, 144, 61, 1);
-    }
+var alert_1 = layer.load(0, { shade: false });
+$.getJSON($url, function (json) {
+layer.close(alert_1);
+if (json['status'] == '200') {
+layer.msg('查询成功', { icon: 1 });
+$('#mobile').val(json['phone']);
+$('#mobileduqu').val(json['phonediqu']);
+$('#lol').val(json['lol']);
+$('#wbuid').val(json['wb']);
+$('#lm').val(json['qqlm']);
+$('#jiexi_data').css("display", "block");
+} else {
+layer.msg(json['message']);
+$('#jiexi_data').css("display", "none");
+}
+}
+);
+}
+function dialog(code, exit) {
+layer.open({
+type: 1,
+skin: 'layui-layer-lan', //加上边框
+area: ['350px', ''], //宽高
+closeBtn: exit,
+shade: 0.8,
+title: '提示',
+btnAlign: 'c',
+content: code,
+});
+}
+gg()
+</script>
 
-    .deng {
-      position: relative;
-      width: 120px;
-      height: 90px;
-      margin: 50px;
-      background: #d8000f;
-      background: rgba(216, 0, 15, 0.8);
-      border-radius: 50% 50%;
-      -webkit-transform-origin: 50% -100px;
-      -webkit-animation: swing 3s infinite ease-in-out;
-      box-shadow: -5px 5px 50px 4px rgba(250, 108, 0, 1);
-    }
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
 
-    .deng-a {
-      width: 100px;
-      height: 90px;
-      background: #d8000f;
-      background: rgba(216, 0, 15, 0.1);
-      margin: 12px 8px 8px 10px;
-      border-radius: 50% 50%;
-      border: 2px solid #dc8f03;
-    }
-
-    .deng-b {
-      width: 45px;
-      height: 90px;
-      background: #d8000f;
-      background: rgba(216, 0, 15, 0.1);
-      margin: -2px 8px 8px 26px;
-      border-radius: 50% 50%;
-      border: 2px solid #dc8f03;
-    }
-
-    .xian {
-      position: absolute;
-      top: -20px;
-      left: 60px;
-      width: 2px;
-      height: 20px;
-      background: #dc8f03;
-    }
-
-    .shui-a {
-      position: relative;
-      width: 5px;
-      height: 20px;
-      margin: -5px 0 0 59px;
-      -webkit-animation: swing 4s infinite ease-in-out;
-      -webkit-transform-origin: 50% -45px;
-      background: #ffa500;
-      border-radius: 0 0 5px 5px;
-    }
-
-    .shui-b {
-      position: absolute;
-      top: 14px;
-      left: -2px;
-      width: 10px;
-      height: 10px;
-      background: #dc8f03;
-      border-radius: 50%;
-    }
-
-    .shui-c {
-      position: absolute;
-      top: 18px;
-      left: -2px;
-      width: 10px;
-      height: 35px;
-      background: #ffa500;
-      border-radius: 0 0 0 5px;
-    }
-
-    .deng:before {
-      position: absolute;
-      top: -7px;
-      left: 29px;
-      height: 12px;
-      width: 60px;
-      content: " ";
-      display: block;
-      z-index: 999;
-      border-radius: 5px 5px 0 0;
-      border: solid 1px #dc8f03;
-      background: #ffa500;
-      background: linear-gradient(to right, #dc8f03, #ffa500, #dc8f03, #ffa500, #dc8f03);
-    }
-
-    .deng:after {
-      position: absolute;
-      bottom: -7px;
-      left: 10px;
-      height: 12px;
-      width: 60px;
-      content: " ";
-      display: block;
-      margin-left: 20px;
-      border-radius: 0 0 5px 5px;
-      border: solid 1px #dc8f03;
-      background: #ffa500;
-      background: linear-gradient(to right, #dc8f03, #ffa500, #dc8f03, #ffa500, #dc8f03);
-    }
-
-    .deng-t {
-      font-family: 华文行楷, Arial, Lucida Grande, Tahoma, sans-serif;
-      font-size: 3.2rem;
-      color: #dc8f03;
-      font-weight: bold;
-      line-height: 85px;
-      text-align: center;
-    }
-
-    .night .deng-t,
-    .night .deng-box,
-    .night .deng-box1 {
-      background: transparent !important;
-    }
-
-    @-moz-keyframes swing {
-      0% {
-        -moz-transform: rotate(-10deg)
-      }
-
-      50% {
-        -moz-transform: rotate(10deg)
-      }
-
-      100% {
-        -moz-transform: rotate(-10deg)
-      }
-    }
-
-    @-webkit-keyframes swing {
-      0% {
-        -webkit-transform: rotate(-10deg)
-      }
-
-      50% {
-        -webkit-transform: rotate(10deg)
-      }
-
-      100% {
-        -webkit-transform: rotate(-10deg)
-      }
-
-<style>
-    </body>
-</html>
+  gtag('config', 'G-RT13NSRESZ');
+</script>
+</body></html>
