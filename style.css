@@ -155,13 +155,13 @@
 		background: #ecf0f3;
 		box-shadow: inset 5px 5px 10px #b1b4b6,
 			inset -5px -5px 10px #ffffff;
+		scrollbar-width: none;
 	}
 	#boxs{
 		margin:0px;
 		height: 200px;
 		overflow-x: hidden;
 		overflow-y: scroll;
-		scrollbar-width: none;
 	}
 	#boxs::-webkit-scrollbar{
 		width: 5px;
