@@ -153,8 +153,6 @@
 		padding:10px;
 		margin-bottom:10px;
 		background: #ecf0f3;
-		box-shadow: inset 5px 5px 10px #b1b4b6,
-			inset -5px -5px 10px #ffffff;
 		scrollbar-width: none;
 	}
 	#boxs{
