@@ -164,8 +164,7 @@
 		scrollbar-width: none;
 	}
 	#boxs::-webkit-scrollbar{
-		width: 5px;
-		height: 5px;
+		  display: none;
 	}
 	#boxs::-webkit-scrollbar-track{
 		border-radius: 12px;
