@@ -156,6 +156,9 @@
 		box-shadow: inset 5px 5px 10px #b1b4b6,
 			inset -5px -5px 10px #ffffff;
 	}
+        .box::-webkit-scrollbar {
+                display: none;
+        }
 	#boxs{
 		margin:0px;
 		height: 200px;
@@ -164,7 +167,8 @@
 		scrollbar-width: none;
 	}
 	#boxs::-webkit-scrollbar{
-		  display: none;
+		width: 5px;
+		height: 5px;
 	}
 	#boxs::-webkit-scrollbar-track{
 		border-radius: 12px;
