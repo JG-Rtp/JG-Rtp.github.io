@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta charset="UTF-8">
+<link href="https://jg-rtp.github.io/img/jg.ico" rel="shortcut icon">
+<title>Merry Christmas</title>
+<script src="./js/jquery-3.6.0.js"></script>
+<script type="text/javascript" src="./js/ThreeCanvas.js"></script>
+<script type="text/javascript" src="./js/Snow.js"></script>
+<script type="text/javascript">
+    var system ={};  
+       var p = navigator.platform;       
+       system.win = p.indexOf("Win") == 0;  
+       system.mac = p.indexOf("Mac") == 0;  
+       system.x11 = (p == "X11") || (p.indexOf("Linux") == 0);     
+       if(system.win||system.mac||system.xll){//如果是电脑跳转到
+               window.location.href="#";  
+       }else{  //如果是手机,跳转到
+              window.location.href="jsd.html";  
+       }
+</script>
+</head>
+<body onLoad="init()">
+<script type="text/javascript">
+	var SCREEN_WIDTH = window.innerWidth;
+	var SCREEN_HEIGHT = window.innerHeight;
+	var container;
+	var particle;
+	var camera;
+	var scene;
+	var renderer;
+	var mouseX = 0;
+	var mouseY = 0;
+	var windowHalfX = window.innerWidth / 2;
+	var windowHalfY = window.innerHeight / 2;
+	var particles = []; 
+	var particleImage = new Image();//THREE.ImageUtils.loadTexture( "./img/ParticleSmoke.png" );
+	particleImage.src = './img/ParticleSmoke.png'; 
+
+
+
+	function init() {
+
+		container = document.createElement('div');
+		document.body.appendChild(container);
+
+		camera = new THREE.PerspectiveCamera( 75, SCREEN_WIDTH / SCREEN_HEIGHT, 1, 10000 );
+		camera.position.z = 1000;
+
+		scene = new THREE.Scene();
+		scene.add(camera);
+			
+		renderer = new THREE.CanvasRenderer();
+		renderer.setSize(SCREEN_WIDTH, SCREEN_HEIGHT);
+		var material = new THREE.ParticleBasicMaterial( { map: new THREE.Texture(particleImage) } );
+			
+		for (var i = 0; i < 500; i++) {
+
+			particle = new Particle3D( material);
+			particle.position.x = Math.random() * 2000 - 1000;
+			particle.position.y = Math.random() * 2000 - 1000;
+			particle.position.z = Math.random() * 2000 - 1000;
+			particle.scale.x = particle.scale.y =  1;
+			scene.add( particle );
+			
+			particles.push(particle); 
+		}
+
+		container.appendChild( renderer.domElement );
+
+
+		document.addEventListener( 'mousemove', onDocumentMouseMove, false );
+		document.addEventListener( 'touchstart', onDocumentTouchStart, false );
+		document.addEventListener( 'touchmove', onDocumentTouchMove, false );
+		
+		setInterval( loop, 1000 / 60 );
+		
+	}
+	function onDocumentMouseMove( event ) {
+		mouseX = event.clientX - windowHalfX;
+		mouseY = event.clientY - windowHalfY;
+	}
+	function onDocumentTouchStart( event ) {
+		if ( event.touches.length == 1 ) {
+			event.preventDefault();
+			mouseX = event.touches[ 0 ].pageX - windowHalfX;
+			mouseY = event.touches[ 0 ].pageY - windowHalfY;
+		}
+	}
+	function onDocumentTouchMove( event ) {
+		if ( event.touches.length == 1 ) {
+			event.preventDefault();
+			mouseX = event.touches[ 0 ].pageX - windowHalfX;
+			mouseY = event.touches[ 0 ].pageY - windowHalfY;
+		}
+	}
+	//
+	function loop() {
+	for(var i = 0; i<particles.length; i++)
+		{
+			var particle = particles[i]; 
+			particle.updatePhysics(); 
+
+			with(particle.position)
+			{
+				if(y<-1000) y+=2000; 
+				if(x>1000) x-=2000; 
+				else if(x<-1000) x+=2000; 
+				if(z>1000) z-=2000; 
+				else if(z<-1000) z+=2000; 
+			}				
+		}
+
+		camera.position.x += ( mouseX - camera.position.x ) * 0.05;
+		camera.position.y += ( - mouseY - camera.position.y ) * 0.05;
+		camera.lookAt(scene.position); 
+
+		renderer.render( scene, camera );
+
+		
+	}
+</script> 
+<style>
+      @font-face{
+         font-family: 'jg'; 
+         src: url('./font/LaBelleAurore.ttf');
+       }
+    * {
+        padding: 0;
+        margin: 0;
+        border: 0;
+       
+        vertical-align: baseline;
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        box-sizing: border-box;
+    }
+    html {
+              height: 100%;
+    }
+    body {
+        width:100%;
+        height: 100%;
+        overflow: hidden;
+        color: #fff;
+        -webkit-perspective: 1000px;
+        -moz-perspective: 1000px;
+        -ms-perspective: 1000px;
+        -o-perspective: 1000px;
+        perspective: 1000px;
+        background: url(./img/body.png)center no-repeat;;
+        background-size:cover;  /* 让背景图基于容器大小伸缩 */
+        background-attachment:fixed;        /* 当内容高度大于图片高度时，背景图像的位置相对于viewport固定 */    //此条属性必须设置否则可能无效/
+        background-color:#CCCCCC;
+    }
+    h1 {
+        font-size: 2em;
+    }
+    .book {
+        width: 340px;
+        height: 340px;
+        margin-top: -150px;
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        -webkit-transform: rotateX(60deg);
+        -moz-transform: rotateX(60deg);
+        -ms-transform: rotateX(60deg);
+        -o-transform: rotateX(60deg);
+        transform: rotateX(60deg);
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        -o-user-select: none;
+        user-select: none;
+    }
+    .page {
+        background: url(./img/background6.png)center no-repeat;
+        background-size:cover;
+        width: 340px;
+        height: 340px;
+        padding: 1em;
+        position: absolute;
+        left: 0;
+        top: 0;
+        text-indent: 2em;
+    }
+    .front {
+        background-color: #d93e2b;
+    }
+    .back {
+        background-color: #fff;
+    }
+    .front-cover {
+        cursor: move;
+        -webkit-transform-origin: 0 50%;
+        -moz-transform-origin: 0 50%;
+        -ms-transform-origin: 0 50%;
+        -o-transform-origin: 0 50%;
+        transform-origin: 0 50%;
+        -webkit-transform: rotateY(0deg);
+        -moz-transform: rotateY(0deg);
+        -ms-transform: rotateY(0deg);
+        -o-transform: rotateY(0deg);
+        transform: rotateY(0deg);
+    }
+    .front-cover .back {
+        background-image: url(./img/mdn2.png);
+        background-repeat: no-repeat;
+        background-position: 50% 50%;
+        -webkit-transform: translateZ(3px);
+        -moz-transform: translateZ(3px);
+        -ms-transform: translateZ(3px);
+        -o-transform: translateZ(3px);
+        transform: translateZ(3px);
+    }
+    .back-cover .back {
+        -webkit-transform: translateZ(-3px);
+        -moz-transform: translateZ(-3px);
+        -ms-transform: translateZ(-3px);
+        -o-transform: translateZ(-3px);
+        transform: translateZ(-3px); 
+    }
+    .p3d {
+        -webkit-transform-style: preserve-3d;
+        -moz-transform-style: preserve-3d;
+        -ms-transform-style: preserve-3d;
+        -o-transform-style: preserve-3d;
+        transform-style: preserve-3d;
+    }
+    .flip {
+        -webkit-transform: rotateY(180deg);
+        -moz-transform: rotateY(180deg);
+        -ms-transform: rotateY(180deg);
+        -o-transform: rotateY(180deg);
+        transform: rotateY(180deg);
+    }
+    .dino,
+    .shadow {
+        width: 240px;
+        height: 270px;
+        position: absolute;
+        left: 55px;
+        top: 50px;
+        -webkit-transform-origin: 0 100%;
+        -moz-transform-origin: 0 100%;
+        -ms-transform-origin: 0 100%;
+        -o-transform-origin: 0 100%;
+        transform-origin: 0 100%;
+    }
+    .dino {
+        width: 80%;
+        background: url(./img/dino4.png)no-repeat ;
+        
+    }
+    .shadow {
+        background: url(./img/shadow1.png) no-repeat;
+    }
+    #btn {
+        width: 30px;
+        height: 30px;
+        background: url("./img/music.png") no-repeat;
+        background-size: 100% 100%;
+        -webkit-background-size: 100% 100%;
+        -moz-background-size: 100% 100%;
+        -ms-background-size: 100% 100%;
+        -o-background-size: 100% 100%;
+        position: fixed;
+        top: 5.1866666666666665rem;
+        right: 0.22rem;
+        z-index: 6666;
+    }
+    #guajian {
+          width:100%;
+          height: 165px;
+          background-image: url(./img/guajian.png);
+          background-repeat:repeat-x;
+          position: absolute;
+          z-index:-1;
+      }
+</style>
+<div class="book p3d">
+    <div class="back-cover p3d">
+        <div class="page back flip"></div>
+        <div class="page front p3d">
+            <div class="shadow"></div>
+            <div class="dino"></div>
+        </div>
+    </div>
+    <div class="front-cover p3d">
+        <div class="page front flip p3d">
+                <p style="font-family: 'STXingkai', cursive; font-size:22px;">我们本是一株株幼苗，是您用书本播种，用汗水浇灌，用粉笔耕耘，用辛勤培育，才使我们茁壮成长。感谢您，敬爱的佳璇老师，祝您圣诞节快乐。</p>
+                <p style="font-family: 'jg', cursive; font-size:18px;">We are a seedling, it is you who sow seeds with books, water with sweat, cultivate with chalk, and cultivate with hard work, so that we can thrive. Thank you, dear Teacher JX, and Merry Christmas.</p>
+         </div>
+        <div class="page back"></div>
+    </div>
+</div>
+<div id="guajian"></div>
+<div style="position:absolute;z-index:-2;width:120px;height:147.84px; bottom:20px; left:20px;">
+<img src="./img/xueren.gif" style="width:100%;">
+</div>
+<div style="position:absolute;z-index:-2;width:302px;height:188.86px; bottom:20px; right:20px;">
+<img src="./img/sdlr.gif" style="width:100%;">
+</div>
+<script>
+    (function (window, document) {
+
+        var prefixes = ['Webkit', 'Moz', 'ms', 'O', ''],
+            book = document.querySelectorAll('.book')[0],
+            page = document.querySelectorAll('.front-cover')[0],
+            dino = document.querySelectorAll('.dino')[0],
+            shadow = document.querySelectorAll('.shadow')[0],
+            hold = false,
+            centerPoint = window.innerWidth / 2,
+            pageSize = 300,
+            clamp = function (val, min, max) {
+                return Math.max(min, Math.min(val, max));
+            };
+
+        page.onmousedown = function () {
+            hold = true;
+        };
+
+        window.onmouseup = function () {
+            if (hold) {
+                hold = false;
+            }
+        };
+
+        window.onresize = function () {
+            centerPoint = window.innerWidth / 2;
+        };
+
+        window.onmousemove = function (evt) {
+            if (!hold) {
+                return;
+            }
+
+            var angle = clamp((centerPoint - evt.pageX + pageSize) / pageSize * -90, -180, 0),
+                i, j;
+
+            for (i = 0, j = prefixes.length; i < j; i++) {
+                book.style[prefixes[i] + 'Transform'] = 'rotateX(' + (60 + angle / 8) + 'deg)';
+                page.style[prefixes[i] + 'Transform'] = 'rotateY(' + angle + 'deg)';
+                dino.style[prefixes[i] + 'Transform'] = 'rotateX(' + (angle / 2) + 'deg)';
+                shadow.style[prefixes[i] + 'Transform'] = 'translateZ(1px) skewX(' + (angle / 8) + 'deg)';
+            }
+        };
+
+    })(window, document);
+</script>
+</body>
+    <div id="btn">
+        <audio id="audio-player" ref="audio" preload="preload" autoplay="autoplay" loop="loop" style="top:10px; left:10px;position:absolute;z-index:-10">
+            <source src="./music/jinglebells.mp3" type="audio/mpeg">
+            Your browser does not support the audio tag.
+        </audio>
+    </div>
+<script>
+    let isWeixin = () => {
+        let ua = window.navigator.userAgent.toLowerCase()
+        return;
+        /micromessenger/
+            .test(ua)
+    }
+    // method 自动播放
+    let audioPlayer = (id) => {
+        let audio = document.getElementById(id)
+        if (isWeixin()) {
+            document.addEventListener(
+                'WeixinJSBridgeReady'
+                , () => {
+                    audio.play()
+                }, false);
+
+            // 添加 getNetworkType 的判断原因, 请看问题分析2
+            if (typeof window.
+                WeixinJSBridge
+                ==
+                "object"
+                && typeof window.
+                    WeixinJSBridge
+                    .invoke ==
+                "function"
+            ) {
+                window.
+                    WeixinJSBridge
+                    .invoke(
+                        'getNetworkType'
+                        , {}, () => {
+                            audio.play()
+                        })
+            }
+        } else {
+            // audio.play();
+            let touchPlay = () => {
+                audio.play();
+                document.removeEventListener(
+                    'touchstart'
+                    , touchPlay, false)
+            };
+            if (audio.paused) {
+                document.addEventListener(
+                    'touchstart'
+                    , touchPlay, false)
+            }
+        }
+    }
+    // 使用
+    audioPlayer(
+        'audio-player'
+    );
+
+    var audio = document.getElementById("audio-player");
+    var btn = document.getElementById("btn");
+    var rotateVal = 0;
+
+    var InterVal;     // 定时器
+    // 设置定时器
+    function rotate() {
+        InterVal = setInterval(function () {
+            rotateVal += 4;
+            // 设置旋转属性(顺时针)
+            btn.style.transform = 'rotate(' + rotateVal + 'deg)';
+            // 设置旋转属性(逆时针)
+            //img.style.transform = 'rotate(-' + rotateVal + 'deg)'
+            // 设置旋转时的动画  匀速0.1s
+            btn.style.transition = '0.1s linear'
+        }, 100)
+    }
+    rotate();
+    btn.onclick = function () {         //点击按钮播放停止
+        if (audio.paused) { //判断当前的状态是否为暂停，若是则点击播放，否则暂停
+            audio.play();
+            rotate()
+        } else {
+            audio.pause();
+            clearInterval(InterVal)
+        }
+    };
+
+</script>
+</html>
