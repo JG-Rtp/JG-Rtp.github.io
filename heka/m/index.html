@@ -12,22 +12,6 @@ function myFunction() {
   alert("推荐使用电脑查看手机端仅供参考！！！\n点击确定后打开");
 }
 myFunction()
-
-    window.onload = function(){
-            var str=document.getElementById("zfy");
-    var fontw=25; //初始的字体大小
-    var fonth=fontw+2;//初始字体高度
-    var width=str.offsetWidth;//DIV的宽度
-    var height=str.offsetHeight;//div的高度
-    var lenstr=str.innerHTML.length;//DIV里文字长度
-    fonts=fontw*fonth*lenstr;//字体面积
-    divs=width*height;//DIV面积
-    //if(fonts>divs){
-    var rfont;//重设字体大小为rfont
-    rfont=Math.round((Math.sqrt(4*lenstr*divs-4*lenstr*lenstr)-2*lenstr)/(2*lenstr));
-    str.style.fontSize=rfont+"px";
-    //}
-    }
 </script>
 </head>
 <body onLoad="init()">
@@ -321,9 +305,9 @@ myFunction()
         </div>
     </div>
     <div class="card-page cart-page-bottom" id="zfy">
-      <p style="font-family: 'STXingkai', cursive; font-size:1vw;">白雪儿飘飘，鹿铃儿敲敲，甜蜜的平安夜又来到，快乐的圣诞节多美好！</p>
-      <p style="font-family: 'jg', cursive; font-size:1vw;">Snow flutters, deer bells ring, sweet Christmas Eve is here again, how wonderful is a happy Christmas!</p>
-      <p style="text-align: right;font-family: 'STXingkai', cursive; font-size:1vw;">--闫志旺</p>
+      <p style="font-family: 'STXingkai', cursive; font-size:2.8vw;">白雪儿飘飘，鹿铃儿敲敲，甜蜜的平安夜又来到，快乐的圣诞节多美好！</p>
+      <p style="font-family: 'jg', cursive; font-size:2.5vw;">Snow flutters, deer bells ring, sweet Christmas Eve is here again, how wonderful is a happy Christmas!</p>
+      <p style="text-align: right;font-family: 'STXingkai', cursive; font-size:2.5vw;">--闫志旺</p>
     </div>
   </div>
 
