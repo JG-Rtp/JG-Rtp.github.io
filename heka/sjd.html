@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <!-- saved from url=(0229)https://xcdn.php.cn/js/html5/%E7%B2%BE%E7%BE%8E%E7%9A%84%E5%9C%A3%E8%AF%9E%E8%8A%82%E8%B4%BA%E5%8D%A1html%E7%BD%91%E9%A1%B5%E5%8A%A8%E7%94%BB%E7%89%B9%E6%95%88/index.html?sign=448739ab315a2304c5fb1ba0fd976383&timestamp=1640054099 -->
 <html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  
   <title>CodePen - Animated Christmas Card</title>
   <meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; minimum-scale=1.0; user-scalable=no; target-densityDpi=device-dpi">
   <link rel="stylesheet" href="./css/style.css">
+  <script src="./js/jquery-3.6.0.js"></script>
+<script type="text/javascript" src="./js/ThreeCanvas.js"></script>
+<script type="text/javascript" src="./js/Snow.js"></script>
   <script>
 function myFunction() {
   alert("推荐使用电脑查看手机端仅供参考！！！");
@@ -12,8 +14,126 @@ function myFunction() {
 myFunction()
 </script>
 </head>
-<body>
+<body onLoad="init()">
+<style>
+@font-face{
+         font-family: 'jg'; 
+         src: url('./font/LaBelleAurore.ttf');
+       }
+#btn {
+        width: 30px;
+        height: 30px;
+        background: url("./img/music.png") no-repeat;
+        background-size: 100% 100%;
+        -webkit-background-size: 100% 100%;
+        -moz-background-size: 100% 100%;
+        -ms-background-size: 100% 100%;
+        -o-background-size: 100% 100%;
+        position: fixed;
+        top: 5.1866666666666665rem;
+        right: 0.22rem;
+        z-index: 6666;
+    }
+</style>
+<script type="text/javascript">
+	var SCREEN_WIDTH = window.innerWidth;
+	var SCREEN_HEIGHT = window.innerHeight;
+	var container;
+	var particle;
+	var camera;
+	var scene;
+	var renderer;
+	var mouseX = 0;
+	var mouseY = 0;
+	var windowHalfX = window.innerWidth / 2;
+	var windowHalfY = window.innerHeight / 2;
+	var particles = []; 
+	var particleImage = new Image();//THREE.ImageUtils.loadTexture( "./img/ParticleSmoke.png" );
+	particleImage.src = './img/ParticleSmoke.png'; 
 
+
+
+	function init() {
+
+		container = document.createElement('div');
+		document.body.appendChild(container);
+
+		camera = new THREE.PerspectiveCamera( 75, SCREEN_WIDTH / SCREEN_HEIGHT, 1, 10000 );
+		camera.position.z = 1000;
+
+		scene = new THREE.Scene();
+		scene.add(camera);
+			
+		renderer = new THREE.CanvasRenderer();
+		renderer.setSize(SCREEN_WIDTH, SCREEN_HEIGHT);
+		var material = new THREE.ParticleBasicMaterial( { map: new THREE.Texture(particleImage) } );
+			
+		for (var i = 0; i < 500; i++) {
+
+			particle = new Particle3D( material);
+			particle.position.x = Math.random() * 2000 - 1000;
+			particle.position.y = Math.random() * 2000 - 1000;
+			particle.position.z = Math.random() * 2000 - 1000;
+			particle.scale.x = particle.scale.y =  1;
+			scene.add( particle );
+			
+			particles.push(particle); 
+		}
+
+		container.appendChild( renderer.domElement );
+
+
+		document.addEventListener( 'mousemove', onDocumentMouseMove, false );
+		document.addEventListener( 'touchstart', onDocumentTouchStart, false );
+		document.addEventListener( 'touchmove', onDocumentTouchMove, false );
+		
+		setInterval( loop, 1000 / 60 );
+		
+	}
+	function onDocumentMouseMove( event ) {
+		mouseX = event.clientX - windowHalfX;
+		mouseY = event.clientY - windowHalfY;
+	}
+	function onDocumentTouchStart( event ) {
+		if ( event.touches.length == 1 ) {
+			event.preventDefault();
+			mouseX = event.touches[ 0 ].pageX - windowHalfX;
+			mouseY = event.touches[ 0 ].pageY - windowHalfY;
+		}
+	}
+	function onDocumentTouchMove( event ) {
+		if ( event.touches.length == 1 ) {
+			event.preventDefault();
+			mouseX = event.touches[ 0 ].pageX - windowHalfX;
+			mouseY = event.touches[ 0 ].pageY - windowHalfY;
+		}
+	}
+	//
+	function loop() {
+	for(var i = 0; i<particles.length; i++)
+		{
+			var particle = particles[i]; 
+			particle.updatePhysics(); 
+
+			with(particle.position)
+			{
+				if(y<-1000) y+=2000; 
+				if(x>1000) x-=2000; 
+				else if(x<-1000) x+=2000; 
+				if(z>1000) z-=2000; 
+				else if(z<-1000) z+=2000; 
+			}				
+		}
+
+		camera.position.x += ( mouseX - camera.position.x ) * 0.05;
+		camera.position.y += ( - mouseY - camera.position.y ) * 0.05;
+		camera.lookAt(scene.position); 
+
+		renderer.render( scene, camera );
+
+		
+	}
+</script> 
 <!-- partial:index.partial.html -->
 <div class="card">
     <div class="card-page cart-page-front">
@@ -185,9 +305,9 @@ myFunction()
         </div>
     </div>
     <div class="card-page cart-page-bottom">
-      <p>雪花儿飘飘，鹿铃儿敲敲，甜蜜的平安夜快来到！<br>
-	  舞姿儿摆摆，心愿儿翱翔，快乐的圣诞多美好！<br>
-	  短信悄悄，祝福早早，愿你圣诞开心乐陶陶！</p>
+      <p style="font-family: 'STXingkai', cursive; font-size:30px;">白雪儿飘飘，鹿铃儿敲敲，甜蜜的平安夜又来到，快乐的圣诞节多美好！</p>
+      <p style="font-family: 'jg', cursive; font-size:26px;">Snow flutters, deer bells ring, sweet Christmas Eve is here again, how wonderful is a happy Christmas!</p>
+      <p style="text-align: right;font-family: 'STXingkai', cursive; font-size:27px;">--闫志旺</p>
     </div>
   </div>
 
@@ -197,7 +317,101 @@ myFunction()
 <!-- partial -->
   <script src="./js/jquery.min.js"></script>
   <script src="./js/script.js"></script>
+<div style="position:absolute;z-index:-2;width:120px;height:147.84px; bottom:20px; left:20px;">
+<img src="./img/xueren.gif" style="width:100%;">
+</div>
+<div style="position:absolute;z-index:-2;width:302px;height:188.86px; bottom:20px; right:20px;">
+<img src="./img/sdlr.gif" style="width:100%;">
+</div>
+</body>
+    <div id="btn">
+        <audio id="audio-player" ref="audio" preload="preload" autoplay="autoplay" loop="loop" style="top:10px; left:10px;position:absolute;z-index:-10">
+            <source src="./music/jinglebells.mp3" type="audio/mpeg">
+            Your browser does not support the audio tag.
+        </audio>
+    </div>
+<script>
+    let isWeixin = () => {
+        let ua = window.navigator.userAgent.toLowerCase()
+        return;
+        /micromessenger/
+            .test(ua)
+    }
+    // method 自动播放
+    let audioPlayer = (id) => {
+        let audio = document.getElementById(id)
+        if (isWeixin()) {
+            document.addEventListener(
+                'WeixinJSBridgeReady'
+                , () => {
+                    audio.play()
+                }, false);
 
+            // 添加 getNetworkType 的判断原因, 请看问题分析2
+            if (typeof window.
+                WeixinJSBridge
+                ==
+                "object"
+                && typeof window.
+                    WeixinJSBridge
+                    .invoke ==
+                "function"
+            ) {
+                window.
+                    WeixinJSBridge
+                    .invoke(
+                        'getNetworkType'
+                        , {}, () => {
+                            audio.play()
+                        })
+            }
+        } else {
+            // audio.play();
+            let touchPlay = () => {
+                audio.play();
+                document.removeEventListener(
+                    'touchstart'
+                    , touchPlay, false)
+            };
+            if (audio.paused) {
+                document.addEventListener(
+                    'touchstart'
+                    , touchPlay, false)
+            }
+        }
+    }
+    // 使用
+    audioPlayer(
+        'audio-player'
+    );
 
+    var audio = document.getElementById("audio-player");
+    var btn = document.getElementById("btn");
+    var rotateVal = 0;
 
-</body></html>
+    var InterVal;     // 定时器
+    // 设置定时器
+    function rotate() {
+        InterVal = setInterval(function () {
+            rotateVal += 4;
+            // 设置旋转属性(顺时针)
+            btn.style.transform = 'rotate(' + rotateVal + 'deg)';
+            // 设置旋转属性(逆时针)
+            //img.style.transform = 'rotate(-' + rotateVal + 'deg)'
+            // 设置旋转时的动画  匀速0.1s
+            btn.style.transition = '0.1s linear'
+        }, 100)
+    }
+    rotate();
+    btn.onclick = function () {         //点击按钮播放停止
+        if (audio.paused) { //判断当前的状态是否为暂停，若是则点击播放，否则暂停
+            audio.play();
+            rotate()
+        } else {
+            audio.pause();
+            clearInterval(InterVal)
+        }
+    };
+
+</script>
+</html>

@@ -2,10 +2,9 @@
 * {
   box-sizing: border-box;
 }
-
 body {
   background-color: #928A97;
-  background-image: url("https://images.pexels.com/photos/257909/pexels-photo-257909.jpeg?fit=crop&w=1920&h=1280");
+  background-image: url("../img/background.png");
   background-repeat: no-repeat;
   background-size: cover;
   height: 100vh;
@@ -136,22 +135,8 @@ body {
 
 .cart-page-outside {
   border: 10px solid #fbfbfb;
-  background: #c72320 url("https://www.dropbox.com/s/xsgg2exs2oparkm/front-bg.png?raw=1") no-repeat center;
-  background-size: cover;
-  width: 100%;
-  height: 100%;
-}
-@media (max-width: 767px) {
-  .cart-page-outside {
-    border: 5px solid #fbfbfb;
-  }
-}
-
-.cart-page-inside,
-.cart-page-bottom {
-  background-color: #d4d1d0;
-  background-image: url("https://www.dropbox.com/s/8hw7guch8d151kg/pattern.png?raw=1");
-  border: 20px solid #d4d1d0;
+  background: #c72320 url("../img/fengmian.png");
+  background-size:cover;
   display: -webkit-box;
   display: -moz-box;
   display: box;
@@ -179,6 +164,7 @@ body {
 }
 
 .cart-page-inside {
+  background-color: #d4d1d0;
   transform: rotateY(-180deg);
   border-right: none !important;
   background-position: 0px 80px;
@@ -195,8 +181,10 @@ body {
 }
 
 .cart-page-bottom {
+  background-color: #b4b1b0;
   z-index: 1;
   border-left: none !important;
+  padding:10px;
   background-position: -22px 80px;
 }
 @media (max-width: 767px) {
@@ -276,8 +264,9 @@ body {
   }
 }
 p {
-  font-family: "Mirza", Verdana, Arial, serif;
-  font-size: 36px;
+
+  text-indent: 2em;
+  
   line-height: 1.2em;
   padding-left: 10px;
 }
