@@ -18,7 +18,7 @@ $(document).ready(function () {
     
     var $outputLink = $('#output-link');
     $('#search').on('click', function () {
-        var link = window.location.origin + window.location.pathname + '?' + encodeURIComponent($('#kw').val());
+        var link = window.location.origin + window.location.pathname + '?jg=' + encodeURIComponent($('#kw').val());
         $('#output-box').fadeIn();
         showTips('复制下面的地址');
         $outputLink.val(link).focus().select();
