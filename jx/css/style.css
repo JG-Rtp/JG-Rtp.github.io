@@ -1,0 +1,179 @@
+@charset "utf-8";
+
+body {
+    padding-top: 50px;
+    font-size: 14px;
+    background: url(https://api.iyk0.com/ecy/api.php);
+}
+
+/* IE10 viewport hack for Surface/desktop Windows 8 bug */
+@-ms-viewport {
+    width: device-width;
+}
+
+@-o-viewport {
+    width: device-width;
+}
+
+@viewport {
+    width: device-width;
+}
+
+/* 滚动条美化 */
+::-webkit-scrollbar-track-piece {
+    background-color: transparent;
+}
+
+::-webkit-scrollbar {
+    width: 9px;
+    height: 8px;
+    background-color: rgb(192, 199, 210);
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: #AAA;
+    -webkit-border-radius: 7px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background-color: #9f9f9f;
+}
+
+::-webkit-scrollbar-arrow {
+    color: #F00;
+    backgound: #0F0;
+}
+
+canvas {
+    display: block;
+}
+
+.starter-template {
+    height: 50px;
+    /*    padding: 15px 15px;*/
+    text-align: center;
+}
+
+.starter-template .lead {
+    height: 50px;
+    line-height: 50px;
+}
+
+.bottomTitle {
+    height: 50px;
+    line-height: 50px;
+    font-size: 22px;
+    /*font-weight: bold;*/
+    overflow: hidden;
+    text-align: center;
+    margin: 0;
+}
+
+.bottomTitle .right {
+    margin-left: 15px;
+}
+
+.imgYS {
+    width: 100%;
+}
+
+.imgM {
+    width: 50%;
+    margin-left: 25%;
+}
+
+.mt25 {
+    margin-top: 25px;
+}
+
+.mt20 {
+    margin-top: 25px;
+}
+
+.mt10 {
+    margin-top: 10px;
+}
+
+.mr20 {
+    margin-right: 25px;
+}
+
+.tops {
+    display: none;
+    position: fixed;
+    left: 95%;
+    bottom: 85px;
+}
+
+
+/*使用教程*/
+hr {
+    margin: 0px;
+    padding: 0px;
+}
+
+.jc {
+    text-align: center;
+}
+
+/*响应式*/
+@media (min-width: 1024px) {
+    body {
+        font-size: 16px;
+    }
+
+    .starter-template {
+        padding: 5px 15px;
+        text-align: center;
+    }
+}
+
+
+/*Bootstrap样式重置*/
+.navbar-inverse {
+    background-color: #2c323b;
+}
+
+.navbar-inverse .navbar-nav > li > a {
+    color: #ddd;
+}
+
+.navbar-inverse .navbar-nav > .active > a,
+.navbar-inverse .navbar-nav > .active > a:focus,
+.navbar-inverse .navbar-nav > .active > a:hover {
+    color: #fff;
+    background-color: #0c8ed9;
+}
+
+.navbar-brand img {
+    line-height: 50px;
+    margin-top: -5px;
+}
+
+@media screen and (max-width:600px) {
+
+    .imgM {
+        width: 100%;
+        margin: 0;
+    }
+
+    .tops {
+        display: none;
+        position: fixed;
+        left: 88%;
+        bottom: 85px;
+    }
+}
+
+/** 鼠标样式 开始**/
+/** 普通指针样式**/
+body {
+    cursor: url('b.cur'), default;
+}
+
+/** 链接指针样式**/
+a:hover {
+    cursor: url('a.cur'), pointer;
+}
+
+/** 鼠标样式 结束**/

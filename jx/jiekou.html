@@ -1,0 +1,115 @@
+<html>
+<head>
+    <SCRIPT LANGUAGE="JavaScript">
+        function onload() {
+            var obj = document.getElementById('jk');
+        }
+        function fnChange() {}
+        function onClear() {
+            document.getElementById("vipurl").value = "";
+        }
+        function onPlay() {
+            var oJK = document.getElementById("jk");
+            var sJK = oJK.options[oJK.selectedIndex].value;
+            var sVipUrl = document.getElementById("vipurl").value;
+            var oWin = document.getElementById("play");
+            if (sVipUrl.length > 0) {
+                oWin.src = sJK + sVipUrl;
+            }
+        }
+        function iFrameHeight() {
+            var ifm = document.getElementById("play");
+            var subWeb = document.frames ? document.frames["play"].document : ifm.contentDocument;
+            ifm.height = subWeb.body.scrollHeight;
+            ifm.width = subWeb.body.scrollWidth;
+        }
+    </SCRIPT>
+    <title>免费电影播放器</title>
+     <!-- <link rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/3.3.7/css/bootstrap.min.css"> -->
+            <link rel="stylesheet" href="./css/bootstrap.min.css"> 
+
+    <style>
+        table,
+        tr,
+        td,
+        iframe {
+            padding: 0px;
+            margin: 0px;
+        }
+
+        .bg {
+            background: url(..img/22.png);
+        }
+
+        .boxcss {
+            margin-top: 17px;
+        }
+
+        td {
+            background-color: rgba(255,255,255);
+        }
+
+    </style>
+</head>
+
+<body onload="onload()" style="">
+    <table width="100%" align="center" height="100%" border="0" cellpadding="0" cellspacing="0">
+        <tr>
+            <td height="9">
+                <form method="post" action="background-color: black;">
+                    <div class="container boxcss">
+                        <div class="row">
+                            <!-- 选择接口 -->
+                            <div class="col-md-2 col-sm-2 col-xs-12">
+                                <select name="jk" id="jk" size=1 onchange="fnChange()" class="form-control">
+                                    <option value="https://www.1717yun.com/jx/ty.php?url=" selected="">【线路一】</option>
+                                    <option value="https://www.ckplayer.vip/jiexi/?url=" selected="">【线路二】</option>
+                                    <option value="https://jx.618g.com/?url=" selected="">【线路三】</option>
+                                    <!-- <option value="https://jx.elwtc.com/vip/?url=" selected="">【线路四】</option> -->
+		   <option value="https://qimihe.com/?url=" selected="">【线路四】</option>
+                                   <option value="https://jx.quanmingjiexi.com/?url=" selected="">【线路五】</option>
+                                   <option value="https://z1.m1907.cn/?jx=" selected="">【线路六】</option>
+                                   <option value="https://api.653520.top/vip/?url=" selected="">【线路七】</option>
+		   <option value="https://api.jiexi.la/?url=" selected="">【线路八】</option>
+                                   <option value="https://jx.ab33.top/vip/?url=" selected="">【线路九】</option>
+                                   <option value="https://www.ckmov.vip/api.php?url=" selected="">【线路十】</option>
+                                   <option value="https://17kyun.com/api.php?url=" selected="">【线路11】</option>
+		   <option value="https://parse.123mingren.com/Bei/?url=" selected="">【接口12】</option>
+		   <option value="https://vip.bljiex.cc/?v=" selected="">【接口13】</option>
+		   <option value="https://vip.2ktvb.com/player/?url=" selected="">【接口14】</option>
+		   <option value="https://123.1dior.cn/?url=" selected="">【接口15】</option>
+		   <option value="https://jx.rdhk.net/?v=" selected="">【接口16】</option>
+		   <option value="https://jx.xiaolangyun.com/?url=" selected="">【接口17】</option>
+		   <option value="https://www.nxflv.com/?url=" selected="">【接口18】</option>
+		   <option value="https://www.33tn.cn/?url=" selected="">【接口19】</option>
+		   <option value="https://vip.laobandq.com/jiexi.php?url=" selected="">【接口20】</option>
+                                   <option value="https://jx.parwix.com:4433/player/?url=" selected="">【稳定通用】</option>
+                                   <option value="https://okjx.cc/?url=" selected="">【高速稳定】</option>
+                                </select>
+                            </div>
+                            <!-- 选择接口结束 -->
+                            <!-- 视频地址 -->
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <input type="text" name="vipurl" id="vipurl" size=88 value="https://v.youku.com/v_show/id_XNDkwOTIxOTIyNA==.html" class="form-control">
+                            </div>
+                            <!-- 视频地址结束 -->
+                            <div class="col-md-2 col-sm-2 col-xs-6">
+                                <input type="button" value="播放" onclick="onPlay()" class="btn btn-success" style="width: 100%;">
+                            </div>
+                            <div class="col-md-2 col-sm-2 col-xs-6">
+                                <input type="button" value="清除" onclick="onClear()" class="btn btn-danger" style="width: 100%;">
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <iframe class="bg" src="" name="play" id="play" width="100%" align="center" height="100%" frameborder="0" marginheight="0" allowfullscreen="true" marginwidth="0" scrolling="no" style="background:url('./img/playbg.png') no-repeat center;">
+                </iframe>
+            </td>
+        </tr>
+    </table>
+</body>
+</html>
