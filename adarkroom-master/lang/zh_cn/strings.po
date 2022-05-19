@@ -17,6 +17,42 @@ msgstr ""
 "X-POOTLE-MTIME: 1421483365.000000\n"
 "X-Poedit-SearchPath-0: ./../../script\n"
 
+#:script/events/marketing.js:9
+msgid "Penrose"
+msgstr "彭罗斯"
+
+#:script/events/marketing.js:14
+msgid "a strange thrumming, pounding and crashing. visions of people and places, of a huge machine and twisting curves."
+msgstr "一种奇怪的敲击声、撞击声和撞击声。 人和地方的景象，巨大的机器和弯曲的曲线。"
+
+#:script/events/marketing.js:15
+msgid "inviting. it would be so easy to give in, completely."
+msgstr "邀请。 完全屈服是很容易的。"
+
+#:script/events/marketing.js:21
+msgid "give in"
+msgstr "屈服"
+
+#: script/engine.js:780
+msgid "Sound Available!"
+msgstr "有声音可用"
+
+#:script/engine.js:784
+msgid "ears flooded with new sensations."
+msgstr "耳朵里充满了新的感觉。"
+
+#:script/engine.js:785
+msgid "perhaps silence is safer?"
+msgstr "也许沉默更安全？"
+
+#:script/engine.js:789
+msgid "enable audio"
+msgstr "开启音频"
+
+#:script/engine.js:794
+msgid "disable audio"
+msgstr "关闭音频"
+
 #: script/dropbox.js:62
 msgid "Dropbox connection"
 msgstr "dropbox连接"
@@ -217,10 +253,6 @@ msgstr "进食恢复更多生命"
 #: script/engine.js:69
 msgid "learned to make the most of food"
 msgstr "学会充分消化食物"
-
-#: script/engine.js:138
-msgid "get the app."
-msgstr "应用商店"
 
 #: script/engine.js:144 script/engine.js:516
 msgid "lights off."
