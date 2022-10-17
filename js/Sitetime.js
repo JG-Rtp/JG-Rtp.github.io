@@ -1,30 +1,50 @@
 //运行时间
-function siteTime() {
-  window.setTimeout("siteTime()", 1000);
-     var seconds = 1000;
-     var minutes = seconds * 60;
-     var hours = minutes * 60;
-     var days = hours * 24;
-     var years = days * 365;
-     var today = new Date();
-     var todayYear = today.getFullYear();
-     var todayMonth = today.getMonth() + 1;
-     var todayDate = today.getDate();
-     var todayHour = today.getHours();
-     var todayMinute = today.getMinutes();
-     var todaySecond = today.getSeconds();
+function NewDate(str) {
 
+str = str.split('-');
 
-     var t1 = Date.UTC(2021, 8, 6, 00, 00, 00); 
-     var t2 = Date.UTC(todayYear, todayMonth, todayDate, todayHour, todayMinute, todaySecond);
-     var diff = t2 - t1;
-     var diffYears = Math.floor(diff / years);
-      var diffDays = Math.floor((diff / days) - diffYears * 365);
-     var diffHours = Math.floor((diff - (diffYears * 365 + diffDays) * days) / hours);
-     var diffMinutes = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours) / minutes);
-     var diffSeconds = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours - diffMinutes * minutes) / seconds);
-     var nowD=new Date();return parseInt((nowD.getTime()-Date.parse(d))/24/60/60/1000)
-      document.getElementById("iday").innerHTML=siteRun("2021/08/06");
-      document.getElementById("sitetime").innerHTML = "已勉强运行 " +   iday + " 天 " + diffHours + " 小时 " + diffMinutes + " 分钟 " + diffSeconds + " 秒";
-         }  
-         siteTime();
+var date = new Date();
+
+date.setUTCFullYear(str[0], str[1] - 1, str[2]);
+
+date.setUTCHours(0, 0, 0, 0);
+
+return date;
+
+}
+
+function showsectime() {
+
+var birthDay =NewDate("2012-08-01");
+
+var today=new Date();
+
+var timeold=today.getTime()-birthDay.getTime();
+
+var sectimeold=timeold/1000
+
+var secondsold=Math.floor(sectimeold);
+
+var msPerDay=24*60*60*1000;
+
+var e_daysold=timeold/msPerDay;
+
+var daysold=Math.floor(e_daysold);
+
+var e_hrsold=(daysold-e_daysold)*-24;
+
+var hrsold=Math.floor(e_hrsold);
+
+var e_minsold=(hrsold-e_hrsold)*-60;
+
+var minsold=Math.floor((hrsold-e_hrsold)*-60);
+
+var seconds=Math.floor((minsold-e_minsold)*-60).toString();
+
+document.getElementById("showsectime").innerHTML = "勉强运行"+daysold+"天"+hrsold+"小时"+minsold+"分"+seconds+"秒";
+
+setTimeout(showsectime, 1000);
+
+}
+
+showsectime();
