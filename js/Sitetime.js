@@ -15,7 +15,7 @@ return date;
 
 function showsectime() {
 
-var birthDay =NewDate("2012-08-01");
+var birthDay =NewDate("2021-08-06");
 
 var today=new Date();
 
