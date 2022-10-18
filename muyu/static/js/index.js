@@ -5,7 +5,7 @@
  */
 const muyu = document.querySelector("#muyu-img");
 const listBox = document.querySelector(".gongde");
-const setting = document.querySelector(".setting");
+
 var gd = 1;
 //声音素材
 const audio = new Audio();
@@ -54,9 +54,3 @@ window.addEventListener("keydown", function (event) {
     }
   }
 })
-
-//设置按钮
-setting.onclick = () => {
-  const gdNumber = prompt("请输入功德值:")
-  gd = Number(gdNumber)
-}
