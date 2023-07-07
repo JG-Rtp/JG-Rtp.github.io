@@ -6,13 +6,13 @@
 	<style>
 		.bg{
 		    background: #000; /*设置元素背景颜色*/
-		    width: 1000px; /*设置元素宽度*/
+		    width: 100%; /*设置元素宽度*/
 		    height: 300px; /*设置元素高度*/
 		    margin: 0 auto; /*设置元素外边距*/
 		    padding-top: 100px; /*设置元素上内边距*/
 		}
 		.shine{
-		    width: 1000px;
+
 		    font-family: "Microsoft YaHei";
 		    font-size: 60px;
 		    text-align: center;
@@ -67,6 +67,10 @@
 		    0%{ left:0px; }
 		    100%{ left:200px; }
 		}
+
+		
+
+
 	</style>
 </head>
 <body>
@@ -84,5 +88,38 @@
 	<div class="box">
    		<p class="marquee">贾胜利</p>
 	</div>
+
+
+
+	<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>霓虹灯文字</title>
+</head>
+<body>
+	
+<script>
+var Tname="贾胜利";
+var Tlen=Tname.length;
+document.write("<div id='a' style='font-size:40px;'>"+Tname+"</div>");
+var col=new Array("#FFCC00","#3333FF","#FFCC00","#FF0000","#FFCC00","#CC33FF");
+var ic=0;
+function Dcolor(){
+  var Strname="";
+  for (i=0;i<Tlen;++i){
+    var Strname=Strname+"<font color="+col[ic]+">"+Tname.substring(i,i+1)+"</font>";
+   ic=ic+1;
+   if (ic==col.length) ic=0;
+  }
+  a.innerHTML=Strname;
+  setTimeout("Dcolor()",200);
+}
+Dcolor();
+</script>
+
+
+
+
 </body>
 </html>
