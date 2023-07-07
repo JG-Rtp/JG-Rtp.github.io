@@ -47,6 +47,69 @@
 		      -webkit-transform:translateY(-15px);
 		   }
 		}
+		
+		div{
+		   font-weight: bold; /*设置字体粗细*/
+		   font-size: 64px; /*设置字体大小*/
+		   text-align: center; /*设置文字居中*/
+		   height: 120px;
+		   line-height: 110px;
+		   vertical-align: bottom; /*设置文字垂直靠下*/
+		   position: absolute;
+		   left: 0;
+		   right: 0;
+		   top: 100px;
+		   display: block;
+		}
+
+		.wave{
+		   background-image: url("bg/wave.png");/*设置元素背景图像*/
+		   -webkit-background-clip: text; /*背景被裁剪到文字*/
+		   -webkit-text-fill-color: transparent; /*设置文字的填充颜色*/
+		   text-shadow: 0px 0px rgba(255, 255, 255, 0.1); /*设置文字阴影*/
+		   -webkit-animation:wave-animation 1s infinite linear, loading-animation 6s infinite linear alternate; /*设置动画*/
+		   background-size: 200px 100px; /*设置背景图像尺寸*/
+		   background-repeat: repeat-x;
+		   opacity: 1;
+		}
+		@-webkit-keyframes wave-animation {/*创建动画*/
+		   0% {
+		       background-position: 0 bottom;
+		   }
+		   100% {
+		       background-position: 200px bottom;
+		   }
+		}
+		@-webkit-keyframes loading-animation {/*创建动画*/
+		   0% {
+		       background-size: 200px 200px;
+		   }
+		   100% {
+		       background-size: 200px 0px;
+		   }
+		}
+
+		.box{
+		   font-family:"微软雅黑";            /*设置字体*/
+		   width:600px;                    /*设置元素宽度*/
+		   background:lightgreen;
+		   margin:50px auto;                /*设置外边距*/
+		   font-size: 36px;                /*设置文字大小*/
+		   color:blue;                    /*设置文字颜色*/
+		   overflow:hidden;                /*隐藏溢出部分内容*/
+		}
+		.marquee{
+		   position:relative;                /*设置相对定位*/
+		   -webkit-animation: marquee 5s linear infinite alternate;/*设置动画*/
+		}
+		@-webkit-keyframes marquee{        /*创建动画*/
+		    0%{ left:0px; }
+		    100%{ left:200px; }
+		}
+	</style>
+</head>
+<body>
+	
 	</style>
 </head>
 <body>
@@ -54,8 +117,14 @@
 	    <p class="shine">贾胜利
 	    </p>
 	</div>
-	<div class=""bg>
+	<div class="bg">
 	    <h1>贾胜利</h1>
+	</div>
+	<div style="background:#3399FF">
+		<div class="wave">贾胜利</div>
+	</div>
+	<div class="box">
+   		<p class="marquee">贾胜利</p>
 	</div>
 </body>
 </html>
